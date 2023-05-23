@@ -2,52 +2,16 @@
 <config>
     <menu>
         <practice translate="title" module="practice">
-            <title>practices</title>
+            <title>Practice</title>
             <sort_order>10</sort_order>
+            <!-- action>adminhtml/customer/</action -->
             <children>
-                <practice translate="title" module="practice">
-                    <title>Manage practices</title>
-                    <action>practice/adminhtml_one/index</action>
+                <practicegrid translate="title" module="practice">
+                    <title>Manage practice</title>
+                    <action>practice/adminhtml_practice/</action>
                     <sort_order>0</sort_order>
-                </practice>
-                <practice2 translate="title" module="practice">
-                    <title>Manage practices2</title>
-                    <action>practice/adminhtml_two/index</action>
-                    <sort_order>0</sort_order>
-                </practice2>
-                <practice3 translate="title" module="practice">
-                    <title>Manage practices3</title>
-                    <action>practice/adminhtml_three/index</action>
-                    <sort_order>0</sort_order>
-                </practice3>
-                <practice4 translate="title" module="practice">
-                    <title>Manage practices4</title>
-                    <action>practice/adminhtml_four/index</action>
-                    <sort_order>0</sort_order>
-                </practice4>
-                <practice5 translate="title" module="practice">
-                    <title>Manage practices5</title>
-                    <action>practice/adminhtml_five/index</action>
-                    <sort_order>0</sort_order>
-                </practice5>
-                <practice6 translate="title" module="practice">
-                    <title>Manage practices6</title>
-                    <action>practice/adminhtml_six/index</action>
-                    <sort_order>0</sort_order>
-                </practice6>
-                <practice7 translate="title" module="practice">
-                    <title>Manage practices7</title>
-                    <action>practice/adminhtml_seven/index</action>
-                    <sort_order>0</sort_order>
-                </practice7>
-                <practice8 translate="title" module="practice">
-                    <title>Manage practices8</title>
-                    <action>practice/adminhtml_eight/index</action>
-                    <sort_order>0</sort_order>
-                </practice8>
-
+                </practicegrid>
             </children>
-
-        </practice>
+         </practice>
     </menu>
 </config>

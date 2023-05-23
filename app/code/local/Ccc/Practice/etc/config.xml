@@ -1,39 +1,44 @@
-<?xml version="1.0"?>
 <config>
-    <modules>
-        <Ccc_Practice>
-            <version>1.0.1</version>
-        </Ccc_Practice>
-    </modules>
-     <frontend>
+	<modules>
+		<practice>
+			<version>0.1.0</version>
+		</practice>
+	</modules>
+	<frontend>
         <layout>
             <updates>
                 <practice module="Ccc_Practice">
-                    <!-- <file>Ccc_practice.xml</file> -->
+                    <file>Ccc_Practice.xml</file>
                 </practice>
             </updates>
         </layout>
-    </frontend>
-    <global>
-        <models>
-            <practice>
-                <class>Ccc_Practice_Model</class>
-                <resourceModel>practice_resource</resourceModel>
-            </practice>
-            <practice_resource>
-                <class>Ccc_Practice_Model_Resource</class>
-                <entities>
-                    <practice>
-                        <table>practice</table>
-                    </practice>
-                </entities>
-            </practice_resource>
-        </models>
+        <routers>
+            <Practice>
+                <use>standard</use>
+                <args>
+                    <module>Ccc_Practice</module>
+                    <frontName>practice</frontName>
+                </args>
+            </Practice>
+        </routers>
+	</frontend>
+	<global>
+        <events>
+            <cms_page_prepare_save>
+                <observers>
+                    <Ccc_Practice_Model_Observer>
+                        <type>singleton</type>
+                        <class>practice/observer</class>
+                        <method>customObserver</method>
+                    </Ccc_Practice_Model_Observer>
+                </observers>
+            </cms_page_prepare_save>
+        </events>
         <resources>
             <practice_setup>
                 <setup>
                     <module>Ccc_Practice</module>
-                    <class>Mage_Core_Model_Resource_Setup</class>
+                    <class>Ccc_Practice_Model_Resource_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
@@ -50,26 +55,70 @@
                 </connection>
             </practice_read>
         </resources>
-        <blocks>
+        <models>
             <practice>
-                <class>Ccc_Practice_Block</class>
+                <class>Ccc_Practice_Model</class>
+                <resourceModel>practice_resource</resourceModel>
             </practice>
+            <practice_resource>
+                <class>Ccc_Practice_Model_Resource</class>
+                <deprecatedNode>practice_mysql4</deprecatedNode>
+                <entities>
+                    <practice>
+                        <table>practice</table>
+                    </practice>
+                     <practice_entity>
+                        <table>ccc_practice_entity</table>
+                    </practice_entity>
+                    <practice_entity_datetime>
+                        <table>ccc_practice_entity_datetime</table>
+                    </practice_entity_datetime>
+                    <practice_entity_decimal>
+                        <table>ccc_practice_entity_decimal</table>
+                    </practice_entity_decimal>
+                    <practice_entity_int>
+                        <table>ccc_practice_entity_int</table>
+                    </practice_entity_int>
+                    <practice_entity_text>
+                        <table>ccc_practice_entity_text</table>
+                    </practice_entity_text>
+                    <practice_entity_varchar>
+                        <table>ccc_practice_entity_varchar</table>
+                    </practice_entity_varchar>
+                    <practice_entity_char>
+                        <table>ccc_practice_entity_char</table>
+                    </practice_entity_char>
+                </entities>
+            </practice_resource>
+        </models>
+        
+        <blocks>
+        	<practice>
+				<class>Ccc_Practice_Block</class>
+			</practice>
         </blocks>
         <helpers>
-            <practice>
-                <class>Ccc_Practice_Helper</class>
-            </practice>
+        	<practice>
+        		<class>Ccc_Practice_Helper</class>
+        	</practice>
         </helpers>
     </global>
     <admin>
         <routers>
-            <practice>
+            <Practice>
                 <use>admin</use>
                 <args>
                     <module>Ccc_Practice</module>
                     <frontName>practice</frontName>
                 </args>
-            </practice>
+            </Practice>
         </routers>
-    </admin>
+        <layout>
+            <updates>
+                <practice>
+                    <file>practice.xml</file>
+                </practice>
+            </updates>
+        </layout>
+	</admin>
 </config>
