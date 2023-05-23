@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_test_index>
+        <reference name="content">
+            <block type="ccc_test/adminhtml_test_grid" name="ccc_test_test_grid"/>
+        </reference>
+    </adminhtml_test_index>
+</layout>
