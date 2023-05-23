@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <salesman translate="title" module="salesman">
+            <title>Salesman</title>
+            <sort_order>10</sort_order>
+            <!-- action>adminhtml/customer/</action -->
+            <children>
+                <salesmangrid translate="title" module="salesman">
+                    <title>Manage Salesman</title>
+                    <action>salesman/adminhtml_salesman/</action>
+                    <sort_order>0</sort_order>
+                </salesmangrid>
+            </children>
+         </salesman>
+    </menu>
+</config>

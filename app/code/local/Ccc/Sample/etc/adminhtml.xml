@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <sample translate="title" module="sample">
+            <title>Sample</title>
+            <sort_order>10</sort_order>
+            <!-- action>adminhtml/customer/</action -->
+            <children>
+                <samplegrid translate="title" module="sample">
+                    <title>Manage Sample</title>
+                    <action>sample/adminhtml_sample/</action>
+                    <sort_order>0</sort_order>
+                </samplegrid>
+                <attributegrid translate="title" module="sample">
+                    <title>Manage Attribute</title>
+                    <action>sample/adminhtml_attribute/</action>
+                    <sort_order>0</sort_order>
+                </attributegrid>
+            </children>
+         </sample>
+    </menu>
+</config>
