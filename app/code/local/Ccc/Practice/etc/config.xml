@@ -96,6 +96,11 @@
         	<practice>
 				<class>Ccc_Practice_Block</class>
 			</practice>
+            <practice>
+                <rewrite>
+                    <adminhtml_practice>Ccc_Practice_Block_Adminhtml_PracticeNew</adminhtml_practice>
+                </rewrite>
+            </practice>
         </blocks>
         <helpers>
         	<practice>
