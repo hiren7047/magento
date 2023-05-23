@@ -1,30 +1,27 @@
 <?php
 
+die;
 $installer = $this;
-
 $installer->startSetup();
-
-$installer->run("
-
-    CREATE TABLE IF NOT EXISTS {$this->getTable('product')} (
-      `product_id` int(11) NOT NULL AUTO_INCREMENT,
-      `name` varchar(255) NOT NULL,
-      `sku` varchar(255) NOT NULL,
-      `price` decimal(10,2) NOT NULL,
-      `cost` decimal(10,2) NOT NULL,
-      `quantity` int(11) NOT NULL,
-      `description` varchar(255) NOT NULL,
-      `status` tinyint(2) NOT NULL DEFAULT 2,
-      `created_time` datetime NOT NULL,
-      `update_time` datetime DEFAULT NULL,
-      PRIMARY KEY (`product_id`),
-      UNIQUE KEY `sku` (`sku`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-    ");
-
+ 
+/*
+ * Create all entity tables
+ */
+$installer->createEntityTables(
+    $this->getTable('practice/practice_entity')
+);
+ 
+/*
+ * Add Entity type
+ */
+$installer->addEntityType('Ccc_Practice',Array(
+    'entity_model'          =>'practice/practice',
+    'attribute_model'       =>'',
+    'table'                 =>'practice/practice_entity',
+    'increment_model'       =>'',
+    'increment_per_store'   =>'0'
+));
+ 
+$installer->installEntities();
+ 
 $installer->endSetup();
-
-
-
-
