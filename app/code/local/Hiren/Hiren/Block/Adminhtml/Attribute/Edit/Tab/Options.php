@@ -1,4 +1,0 @@
-<?php
-class Hiren_Hiren_Block_Adminhtml_Attribute_Edit_Tabs_Options extends Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract
-{
-}
