@@ -80,6 +80,17 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
             'align'     => 'left',
             'index'     => 'email'
         ));
+         $this->addColumn('gender', array(
+            'header'    => Mage::helper('vendor')->__('Gender'),
+            'align'     => 'left',
+            'renderer'     => 'Hk_Vendor_Block_Adminhtml_Vendor_Grid_Renderer_Gender'
+        ));
+        $this->addColumn('status', array(
+            'header'    => Mage::helper('vendor')->__('Status'),
+            'align'     => 'left',
+            'renderer'     => 'Hk_Vendor_Block_Adminhtml_Vendor_Grid_Renderer_Status'
+        ));
+
 
         return parent::_prepareColumns();
     }
