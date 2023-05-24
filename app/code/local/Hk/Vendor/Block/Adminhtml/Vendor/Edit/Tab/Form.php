@@ -33,13 +33,22 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'name' => 'vendor[email]',
         ));
         
-        $fieldset->addField('gender', 'select', array(
+        $fieldset->addField('gender', 'radios', array(
             'label' => Mage::helper('vendor')->__('Gender'),
-            'required' => true,
+            'required' => false,
             'name' => 'vendor[gender]',
-            'options'=>array(
-                array('lable'=>'Male','value'=>1),
-                array('lable'=>'Female','value'=>2)
+            'values'=>array(
+                array('value'=>1,'label'=>'Male'),
+                array('value'=>2,'label'=>'Female')
+            ),
+        ));
+          $fieldset->addField('status', 'select', array(
+            'label' => Mage::helper('vendor')->__('Status'),
+            'required' => false,
+            'name' => 'vendor[status]',
+            'values'=>array(
+                array('value'=>1,'label'=>'Active'),
+                array('value'=>2,'label'=>'InActive')
             ),
         ));
 

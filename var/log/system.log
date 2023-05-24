@@ -1,0 +1,12 @@
+2023-05-23T13:06:10+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Gender.php on line 19
+2023-05-23T13:06:10+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:10+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:10+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:32+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Gender.php on line 19
+2023-05-23T13:06:32+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:32+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:32+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:43+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Gender.php on line 19
+2023-05-23T13:06:43+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:43+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
+2023-05-23T13:06:43+00:00 ERR (3): Notice: Undefined variable: label  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Grid\Renderer\Status.php on line 16
