@@ -312,7 +312,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<language type="mfe">Morisyen</language>
 			<language type="mg">Malagasy</language>
 			<language type="mga">Middle Irish</language>
-			<language type="mgh">Makhuwa-Meetto</language>
+			<language type="mgh">Makhuwa-HirenAttrto</language>
 			<language type="mgo">Meta'</language>
 			<language type="mh">Marshallese</language>
 			<language type="mi">Maori</language>
@@ -1140,7 +1140,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<type type="lower" key="colCaseFirst">Sort Lowercase First</type>
 			<type type="mlym" key="numbers">Malayalam Digits</type>
 			<type type="mong" key="numbers">Mongolian Digits</type>
-			<type type="mtei" key="numbers">Meetei Mayek Digits</type>
+			<type type="mtei" key="numbers">HirenAttrei Mayek Digits</type>
 			<type type="mymr" key="numbers">Myanmar Digits</type>
 			<type type="mymrshan" key="numbers">Myanmar Shan Digits</type>
 			<type type="native" key="numbers">Native Digits</type>

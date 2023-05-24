@@ -96,11 +96,11 @@
         	<practice>
 				<class>Ccc_Practice_Block</class>
 			</practice>
-            <practice>
+            <adminhtml>
                 <rewrite>
-                    <adminhtml_practice>Ccc_Practice_Block_Adminhtml_PracticeNew</adminhtml_practice>
+                    <catalog_product_grid>Ccc_Practice_Block_Adminhtml_Catalog_Product_Grid</catalog_product_grid>
                 </rewrite>
-            </practice>
+            </adminhtml>
         </blocks>
         <helpers>
         	<practice>
@@ -122,6 +122,13 @@
                     <frontName>practice</frontName>
                 </args>
             </Practice>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ccc_Practice before="Mage_Adminhtml_Catalog">Ccc_Practice_Adminhtml</Ccc_Practice>
+                    </modules>
+                </args>
+            </adminhtml>
         </routers>
         <layout>
             <updates>

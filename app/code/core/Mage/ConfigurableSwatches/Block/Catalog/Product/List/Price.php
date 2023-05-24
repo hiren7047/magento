@@ -79,7 +79,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
     }
 
     /**
-     * Disable output if all preconditions doesn't meet
+     * Disable output if all preconditions doesn't hirenAttr
      *
      * @return string
      */

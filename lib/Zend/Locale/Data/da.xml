@@ -1139,7 +1139,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<type type="lower" key="colCaseFirst" draft="contributed">Sortér med små bogstaver først</type>
 			<type type="mlym" key="numbers">Malayalamske tal</type>
 			<type type="mong" key="numbers" draft="contributed">Mongolske tal</type>
-			<type type="mtei" key="numbers" draft="contributed">Meetei Mayek-tal</type>
+			<type type="mtei" key="numbers" draft="contributed">HirenAttrei Mayek-tal</type>
 			<type type="mymr" key="numbers" draft="contributed">Myanmar tal</type>
 			<type type="mymrshan" key="numbers" draft="contributed">Myanmar Shan-tal</type>
 			<type type="native" key="numbers" draft="contributed">Nationale cifre</type>

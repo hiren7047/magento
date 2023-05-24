@@ -624,7 +624,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 		<likelySubtag from="mg" to="mg_Latn_MG"/>
 		<!--{ Malagasy; ?; ? } => { Malagasy; Latin; Madagascar }-->
 		<likelySubtag from="mgh" to="mgh_Latn_MZ"/>
-		<!--{ Makhuwa-Meetto; ?; ? } => { Makhuwa-Meetto; Latin; Mozambique }-->
+		<!--{ Makhuwa-HirenAttrto; ?; ? } => { Makhuwa-HirenAttrto; Latin; Mozambique }-->
 		<likelySubtag from="mgo" to="mgo_Latn_CM"/>
 		<!--{ Meta'; ?; ? } => { Meta'; Latin; Cameroon }-->
 		<likelySubtag from="mgp" to="mgp_Deva_NP"/>
