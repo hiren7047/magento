@@ -310,7 +310,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<language type="mfe">Morisien</language>
 			<language type="mg">Malagasi</language>
 			<language type="mga">Irlandia Abad Pertengahan</language>
-			<language type="mgh">Makhuwa-Meetto</language>
+			<language type="mgh">Makhuwa-HirenAttrto</language>
 			<language type="mgo" draft="contributed">meta'</language>
 			<language type="mh">Marshall</language>
 			<language type="mi">Maori</language>
@@ -1114,7 +1114,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<type type="lower" key="colCaseFirst">Sortir Huruf Kecil Dahulu</type>
 			<type type="mlym" key="numbers">Angka Malayalam</type>
 			<type type="mong" key="numbers">Angka Mongolia</type>
-			<type type="mtei" key="numbers">Angka Meetei Mayek</type>
+			<type type="mtei" key="numbers">Angka HirenAttrei Mayek</type>
 			<type type="mymr" key="numbers">Angka Myanmar</type>
 			<type type="mymrshan" key="numbers">Angka Myanmar Shan</type>
 			<type type="native" key="numbers">Digit Asli</type>

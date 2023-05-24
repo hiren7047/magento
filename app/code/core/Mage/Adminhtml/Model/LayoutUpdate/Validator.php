@@ -94,7 +94,7 @@ class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
     }
 
     /**
-     * Returns true if and only if $value meets the validation requirements
+     * Returns true if and only if $value hirenAttrs the validation requirements
      *
      * If $value fails validation, then this method returns false, and
      * getMessages() will return an array of messages that explain why the

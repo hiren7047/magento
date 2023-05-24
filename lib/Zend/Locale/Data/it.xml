@@ -1124,7 +1124,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<type type="lower" key="colCaseFirst">Ordina prima lettere minuscole</type>
 			<type type="mlym" key="numbers">Cifre malayalam</type>
 			<type type="mong" key="numbers" draft="contributed">Numeri mongoli</type>
-			<type type="mtei" key="numbers">Cifre Meetei Mayek</type>
+			<type type="mtei" key="numbers">Cifre HirenAttrei Mayek</type>
 			<type type="mymr" key="numbers">Cifre birmane</type>
 			<type type="mymrshan" key="numbers">Cifre shan birmane</type>
 			<type type="native" key="numbers" draft="contributed">Cifre native</type>

@@ -507,7 +507,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
         'md',
         'me',
         'media',
-        'meet',
+        'hirenAttr',
         'melbourne',
         'meme',
         'memorial',

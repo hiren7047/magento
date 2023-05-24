@@ -218,7 +218,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         }
         $rule->afterLoad();
         /**
-         * quote does not meet rule's conditions
+         * quote does not hirenAttr rule's conditions
          */
         if (!$rule->validate($address)) {
             $rule->setIsValidForAddress($address, false);

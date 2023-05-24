@@ -309,7 +309,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<language type="mfe">Morisyen</language>
 			<language type="mg">Malgaşça</language>
 			<language type="mga">Ortaçağ İrlandacası</language>
-			<language type="mgh">Makhuwa-Meetto</language>
+			<language type="mgh">Makhuwa-HirenAttrto</language>
 			<language type="mgo" draft="contributed">Meta'</language>
 			<language type="mh">Marshall Adaları Dili</language>
 			<language type="mi">Maori Dili</language>
@@ -1111,7 +1111,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<type type="lower" key="colCaseFirst">Önce Küçük Harfleri Sıralama</type>
 			<type type="mlym" key="numbers">Malayalam Rakamları</type>
 			<type type="mong" key="numbers">Moğolca Rakamlar</type>
-			<type type="mtei" key="numbers" draft="contributed">Meetei Mayek Rakamları</type>
+			<type type="mtei" key="numbers" draft="contributed">HirenAttrei Mayek Rakamları</type>
 			<type type="mymr" key="numbers">Myanmar Rakamları</type>
 			<type type="mymrshan" key="numbers" draft="contributed">Myanmar Shan Rakamları</type>
 			<type type="native" key="numbers">Yerel Rakamlar</type>

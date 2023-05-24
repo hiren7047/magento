@@ -3226,7 +3226,7 @@ XXX Code for transations where no currency is involved
 			<languagePopulation type="ts" populationPercent="7.9"/>	<!--Tsonga-->
 			<languagePopulation type="ngl" populationPercent="6.8"/>	<!--Lomwe-->
 			<languagePopulation type="seh" populationPercent="4.6"/>	<!--Sena-->
-			<languagePopulation type="mgh" populationPercent="4.5" references="R1274"/>	<!--Makhuwa-Meetto-->
+			<languagePopulation type="mgh" populationPercent="4.5" references="R1274"/>	<!--Makhuwa-HirenAttrto-->
 			<languagePopulation type="rng" populationPercent="3.4"/>	<!--Ronga-->
 			<languagePopulation type="ny" populationPercent="2.6"/>	<!--Nyanja-->
 			<languagePopulation type="yao" populationPercent="2.4"/>	<!--Yao-->

@@ -304,7 +304,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<language type="mfe">Tiếng Morisyen</language>
 			<language type="mg">Tiếng Malagasy</language>
 			<language type="mga" draft="contributed">Tiếng Ai-len Trung cổ</language>
-			<language type="mgh" draft="contributed">Tiếng Makhuwa-Meetto</language>
+			<language type="mgh" draft="contributed">Tiếng Makhuwa-HirenAttrto</language>
 			<language type="mgo" draft="contributed">Tiếng Meta'</language>
 			<language type="mh" draft="contributed">Tiếng Marshall</language>
 			<language type="mi">Tiếng Maori</language>
@@ -1119,7 +1119,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<type type="lower" key="colCaseFirst" draft="contributed">Sắp xếp chữ thường đầu tiên</type>
 			<type type="mlym" key="numbers">Chữ số Malayalam</type>
 			<type type="mong" key="numbers">Chữ số Mông Cổ</type>
-			<type type="mtei" key="numbers" draft="contributed">Chữ số Meetei Mayek</type>
+			<type type="mtei" key="numbers" draft="contributed">Chữ số HirenAttrei Mayek</type>
 			<type type="mymr" key="numbers">Chữ số Myanma</type>
 			<type type="mymrshan" key="numbers" draft="contributed">Chữ số Myanmar Shan</type>
 			<type type="native" key="numbers" draft="contributed">Chữ số tự nhiên</type>
