@@ -13,12 +13,13 @@ class Ccc_Hiren_Block_Adminhtml_Hiren_Grid extends Mage_Adminhtml_Block_Widget_G
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('hiren/hiren')->getCollection()
-            ->addAttributeToSelect('firstname')
-            ->addAttributeToSelect('lastname')
-            ->addAttributeToSelect('email')
-            ->addAttributeToSelect('phoneNo')
-            ->addAttributeToSelect('price_attribute');
+
+        $attributesCodes = Mage::getResourceModel('hiren/hiren_attribute_collection')->getItems();
+        $collection = Mage::getModel('hiren/hiren')->getCollection();
+        foreach($attributesCodes as $attributecode)
+        {
+             $collection->addAttributeToSelect($attributecode->attribute_code);
+        }
 
         $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
        
@@ -63,6 +64,12 @@ class Ccc_Hiren_Block_Adminhtml_Hiren_Grid extends Mage_Adminhtml_Block_Widget_G
                 'header' => Mage::helper('hiren')->__('Email'),
                 'width'  => '50px',
                 'index'  => 'email',
+            ));
+        $this->addColumn('test',
+            array(
+                'header' => Mage::helper('hiren')->__('Test'),
+                'width'  => '50px',
+                'index'  => 'test',
             ));
         
         parent::_prepareColumns();
