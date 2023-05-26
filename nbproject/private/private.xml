@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/2023/magento/app/code/local/Ccc/Product/Model/Product.php</file>
             <file>file:/C:/xampp/htdocs/2023/magento/app/code/local/Ccc/Product/Model/Resource/Product/Collection.php</file>
+            <file>file:/C:/xampp/htdocs/2023/magento/app/Mage.php</file>
             <file>file:/C:/xampp/htdocs/2023/magento/app/etc/local.xml</file>
+            <file>file:/C:/xampp/htdocs/2023/magento/app/code/local/Ccc/Hiren/controllers/Adminhtml/HirenController.php</file>
             <file>file:/C:/xampp/htdocs/2023/magento/app/code/local/Ccc/Product/Model/Resource/Product.php</file>
         </group>
     </open-files>
