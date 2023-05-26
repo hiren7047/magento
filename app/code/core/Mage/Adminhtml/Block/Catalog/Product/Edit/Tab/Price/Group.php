@@ -48,7 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group
      * @param array $data
      * @return array
      */
-    protected function  ($data)
+    protected function _sortValues($data)
     {
         usort($data, array($this, '_sortGroupPrices'));
         return $data;
