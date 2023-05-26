@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hk_Eavmgmt>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Hk_Eavmgmt>
+    </modules>
+</config>
