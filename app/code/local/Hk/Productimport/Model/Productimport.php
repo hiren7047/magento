@@ -66,4 +66,21 @@ class Hk_Productimport_Model_Productimport extends Mage_Core_Model_Abstract
         }
         return $newCollectionNames1;    
     }
+    public function checkBrand()
+    {
+        $idxBrandId = $this->getData('brand_id');
+        if (!$idxBrandId) {
+            return false;
+        }
+        return true;
+    }
+
+    public function checkCollection()
+    {
+        $idxCollectionId = $this->getData('collection_id');
+        if (!$idxCollectionId) {
+            return false;
+        }
+        return true;
+    }
 }

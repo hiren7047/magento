@@ -198,6 +198,17 @@ public function brandAction()
         try {
             $productImport = Mage::getModel('productimport/productimport');
             $productImportCollection = $productImport->getCollection();
+            foreach ($productImportCollection as $productImport) {
+                if (!$productImport->checkBrand()) {
+                    Mage::getSingleton('adminhtml/session')->addNotice('Brand is not fine');
+                    $this->_redirect('*/*/');
+                }
+
+                if (!$productImport->checkCollection()) {
+                    Mage::getSingleton('adminhtml/session')->addNotice('Collection is not fine');                    
+                    $this->_redirect('*/*/');
+                }
+            }
             $productImportCollectionNames = [];
         
             foreach ($productImportCollection as $productImport) {
