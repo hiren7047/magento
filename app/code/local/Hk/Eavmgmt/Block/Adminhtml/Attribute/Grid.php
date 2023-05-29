@@ -1,11 +1,15 @@
 <?php
-class Hk_Eavmgmt_Block_Adminhtml_Attribute_Grid extends Mage_Eav_Block_Adminhtml_Attribute_Grid_Abstract
+class Hk_Eavmgmt_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
-    protected function _prepareCollection()
+  protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('eavmgmt/attribute_collection');
-        // $collection = Mage::getResourceModel('eav/entity_attribute_collection');
+        // $collection = Mage::getResourceModel('eavmgmt/attribute_collection');
+        $collection = Mage::getResourceModel('eav/entity_attribute_collection');
+        // echo "<pre>";
+        // die;
+        // print_r($collection->getData());
+
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -15,73 +19,67 @@ class Hk_Eavmgmt_Block_Adminhtml_Attribute_Grid extends Mage_Eav_Block_Adminhtml
     {
         parent::_prepareColumns();
 
-        $this->addColumn('entity_type_code', array(
+        $this->addColumn('entity_type_id', array(
             'header'=>Mage::helper('eav')->__('Entity Type'),
             'sortable'=>true,
-            'index'=>'entity_type_code'
+            'index'=>'entity_type_id',
+            'renderer'=>'Hk_Eavmgmt_Block_Adminhtml_Attribute_Csv_EntityType'
         ));
 
-        $this->addColumnAfter('is_visible', array(
-            'header'=>Mage::helper('eavmgmt')->__('Visible'),
-            'sortable'=>true,
-            'index'=>'is_visible_on_front',
-            'type' => 'options',
-            'options' => array(
-                '1' => Mage::helper('eavmgmt')->__('Yes'),
-                '0' => Mage::helper('eavmgmt')->__('No'),
-            ),
-            'align' => 'center',
-        ), 'frontend_label');
+        $this->addColumn('attribute_id', array(
+            'header'    => Mage::helper('eav')->__('Attribute Id'),
+            'align'     => 'left',
+            'index'     => 'attribute_id'
+        ));
 
-        $this->addColumnAfter('is_global', array(
-            'header'=>Mage::helper('eavmgmt')->__('Scope'),
-            'sortable'=>true,
-            'index'=>'is_global',
-            'type' => 'options',
-            'options' => array(
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE =>Mage::helper('eavmgmt')->__('Store View'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE =>Mage::helper('eavmgmt')->__('Website'),
-                Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL =>Mage::helper('eavmgmt')->__('Global'),
-            ),
-            'align' => 'center',
-        ), 'is_visible');
+        $this->addColumn('attribute_code', array(
+            'header'    => Mage::helper('eav')->__('Attribute Code'),
+            'align'     => 'left',
+            'index'     => 'attribute_code'
+        ));
 
-        $this->addColumn('is_searchable', array(
-            'header'=>Mage::helper('eavmgmt')->__('Searchable'),
-            'sortable'=>true,
-            'index'=>'is_searchable',
-            'type' => 'options',
-            'options' => array(
-                '1' => Mage::helper('eavmgmt')->__('Yes'),
-                '0' => Mage::helper('eavmgmt')->__('No'),
-            ),
-            'align' => 'center',
-        ), 'is_user_defined');
+        $this->addColumn('frontend_label', array(
+            'header'    => Mage::helper('eav')->__('Attribute Name'),
+            'align'     => 'left',
+            'index'     => 'frontend_label'
+        ));
 
-        $this->addColumnAfter('is_filterable', array(
-            'header'=>Mage::helper('eavmgmt')->__('Use in Layered Navigation'),
-            'sortable'=>true,
-            'index'=>'is_filterable',
-            'type' => 'options',
-            'options' => array(
-                '1' => Mage::helper('eavmgmt')->__('Filterable (with results)'),
-                '2' => Mage::helper('eavmgmt')->__('Filterable (no results)'),
-                '0' => Mage::helper('eavmgmt')->__('No'),
-            ),
-            'align' => 'center',
-        ), 'is_searchable');
+        $this->addColumn('frontend_input', array(
+            'header'    => Mage::helper('eav')->__('Input Type'),
+            'align'     => 'left',
+            'index'     => 'frontend_input'
+        ));
 
-        $this->addColumnAfter('is_comparable', array(
-            'header'=>Mage::helper('eavmgmt')->__('Comparable'),
-            'sortable'=>true,
-            'index'=>'is_comparable',
-            'type' => 'options',
-            'options' => array(
-                '1' => Mage::helper('eavmgmt')->__('Yes'),
-                '0' => Mage::helper('eavmgmt')->__('No'),
-            ),
-            'align' => 'center',
-        ), 'is_filterable');
+        $this->addColumn('backend_type', array(
+            'header'    => Mage::helper('eav')->__('Backend Type'),
+            'align'     => 'left',
+            'index'     => 'backend_type'
+        ));
+
+        $this->addColumn('source_model', array(
+            'header'    => Mage::helper('eav')->__('Source Model'),
+            'align'     => 'left',
+            'index'     => 'source_model'
+        ));
+
+        $this->addColumn('action',
+            array(
+                'header'    =>  Mage::helper('eav')->__('Options'),
+                'width'     => '100',
+                'type'      => 'action',
+                'getter'    => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption'   => Mage::helper('eav')->__('Options'),
+                        'url'       => array('base'=> '*/*/option'),
+                        'field'     => 'attribute_id'
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false,
+                'index'     => 'stores',
+                'is_system' => true,
+        ));
 
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         return $this;
@@ -95,6 +93,10 @@ class Hk_Eavmgmt_Block_Adminhtml_Attribute_Grid extends Mage_Eav_Block_Adminhtml
         $this->getMassactionBlock()->addItem('export', array(
              'label'    => Mage::helper('eavmgmt')->__('Export'),
              'url'      => $this->getUrl('*/*/massExport'),
+        ));
+         $this->getMassactionBlock()->addItem('exportOption', array(
+             'label'    => Mage::helper('eavmgmt')->__('Export Option'),
+             'url'      => $this->getUrl('*/*/massExportOptions'),
         ));
         return $this;
     }

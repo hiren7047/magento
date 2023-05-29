@@ -48,13 +48,7 @@ class Hk_Productimport_Model_Productimport extends Mage_Core_Model_Abstract
         foreach($collection as $product){
             $collectionName[$product->getData('product_id')] = $product->getData('sku');
         }
-        // $collectionName = $collection->getConnection()
-        //     ->fetchPairs($collection->getSelect()->columns(['product_id','sku']));
-
         $newCollectios = array_diff($productImportCollectionNames, $collectionName);
-        // echo 111;
-        // print_r($collectionName);
-        //         die;
         foreach ($newCollectios as $collectionName) {
             $collectionmodel = Mage::getModel('product/product');
             $collectionmodel->sku = $collectionName;
