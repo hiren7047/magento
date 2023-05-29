@@ -20,7 +20,7 @@ class Hk_Eavmgmt_Block_Adminhtml_Attribute_Option extends Mage_Adminhtml_Block_W
         $collection->getSelect()
                     ->join('eav_attribute', 'main_table.attribute_id = eav_attribute.attribute_id', 'attribute_code')
                     ->where('main_table.attribute_id = ?',$id);
-                    print_r($id);
+                    // print_r($id);
         // die;
         $this->setCollection($collection);
 

@@ -71,80 +71,86 @@ class Hk_Eavmgmt_Adminhtml_AttributeController extends Mage_Adminhtml_Controller
         $this->_redirect('*/*/index');
     }
 
-      public function importoptionsAction()
-    {
+public function importoptionsAction()
+{
+    $imported = false; // Flag variable
 
-        if ($_FILES['import_options']['error'] == UPLOAD_ERR_OK) {
-            $csvFile = $_FILES['import_options']['tmp_name'];
-            $csvData = file_get_contents($csvFile);
-            $csvData = array();
-            
-            if (($handle = fopen($csvFile, 'r')) !== false) {
-                while (($data = fgetcsv($handle)) !== false) {
-                    $row = array();
-                    foreach ($data as $value) {
-                        $row[] = $value;
-                    }
-                    $csvData[] = $row;
+    if ($_FILES['import_options']['error'] == UPLOAD_ERR_OK) {
+        $csvFile = $_FILES['import_options']['tmp_name'];
+        $csvData = array();
+
+        if (($handle = fopen($csvFile, 'r')) !== false) {
+            while (($data = fgetcsv($handle)) !== false) {
+                $row = array();
+                foreach ($data as $value) {
+                    $row[] = $value;
                 }
-                  fclose($handle);
+                $csvData[] = $row;
             }
+            fclose($handle);
+        }
 
-            $header = [];
-            foreach ($csvData as $value)
-            {
-                if(!$header)
-                {
-                    $header = $value;
-                }
-                else
-                {
-                    $data = array_combine($header,$value);
+        $header = [];
+        foreach ($csvData as $rowIndex => $value) {
+            if ($rowIndex === 0) {
+                $header = $value;
+            } else {
+                $data = array_combine($header, $value);
 
-                    $collection = Mage::getResourceModel('eav/entity_attribute_collection');
-                    $collection->setCodeFilter($data['Attribute Code']);
-                    $attribute = $collection->getData();
+                $collection = Mage::getResourceModel('eav/entity_attribute_collection');
+                $collection->setCodeFilter($data['Attribute Code']);
+                $attribute = $collection->getFirstItem(); // Retrieve the first matching attribute
 
-                    $collection = Mage::getModel('eav/entity_attribute_option')->getCollection();
-                    $collection->getSelect()
+                $optionValue = $data['Option Name'];
+                $optionSortOrder = $data['Option Order'];
+
+                $optionValueTable = Mage::getSingleton('core/resource')->getTableName('eav_attribute_option_value');
+
+                $select = Mage::getSingleton('core/resource')->getConnection('core_read')->select();
+                $select->from(array('main_table' => $optionValueTable))
                     ->join(
-                        array('eav_attribute_option_value' => Mage::getSingleton('core/resource')->getTableName('eav_attribute_option_value')),
-                        'main_table.option_id = eav_attribute_option_value.option_id',
-                        array('value')
+                        array('second_table' => $collection->getTable('eav/attribute_option')),
+                        'main_table.option_id = second_table.option_id',
+                        array()
                     )
-                    ->where('eav_attribute_option_value.value = ?', $data['Option Name']);
-                    $existingOption = $collection->getData();
+                    ->where('second_table.attribute_id = ?', $attribute->getId())
+                    ->where('main_table.value = ?', $optionValue);
 
-                    $optionModel = Mage::getModel('eav/entity_attribute_option');
-                    if (!$existingOption) {
-                        $setData = ['attribute_id' => $attribute[0]['attribute_id'],'sort_order'=>$data['Option Order']];                            
-                        $optionModel->setData($setData);
-                        $optionModel->save();
+                $existingOption = Mage::getSingleton('core/resource')->getConnection('core_read')->fetchOne($select);
 
-                        $resource = Mage::getSingleton('core/resource');
-                        $connection = $resource->getConnection('core_write');
-                        $tableName = $resource->getTableName('eav_attribute_option_value');
+                if ($existingOption) {
+                    // Option already exists, update the sort order
+                    $optionId = $existingOption;
+                    $optionModel = Mage::getModel('eav/entity_attribute_option')->load($optionId);
+                    $optionModel->setSortOrder($optionSortOrder)->save();
 
-                        $data = array(
-                            'option_id' => $optionModel->option_id,
-                            'store_id' => 0,
-                            'value' => $data['Option Name']
-                        );
+                    $imported = true; // Set flag to true
+                } else {
+                    // Option doesn't exist, create a new option
+                    $optionModel = Mage::getModel('eav/entity_attribute_option')
+                        ->setAttributeId($attribute->getId())
+                        ->setSortOrder($optionSortOrder)
+                        ->save();
 
-                        try {
-                            $connection->insert($tableName, $data);
-                            echo "Value inserted successfully.";
-                        } catch (Exception $e) {
-                            echo "Error: " . $e->getMessage();
-                        }
+                    $optionValueModel = Mage::getModel('eav/entity_attribute_option')
+                        ->setValue($optionValue)
+                        ->setOptionId($optionModel->getId())
+                        ->save();
 
-
-                        echo $optionValueModel->value_id;
-                    }
+                    $imported = true; // Set flag to true
                 }
             }
         }
-
-        $this->_redirect('*/*/index');
     }
+
+    if ($imported) {
+        Mage::getSingleton('adminhtml/session')->addSuccess('Options imported successfully.');
+    }
+
+    $this->_redirect('*/*/index');
 }
+
+
+}
+
+

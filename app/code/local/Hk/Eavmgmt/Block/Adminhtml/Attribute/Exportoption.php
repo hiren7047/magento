@@ -42,7 +42,7 @@ class Hk_Eavmgmt_Block_Adminhtml_Attribute_Exportoption extends Mage_Eav_Block_A
             'header'=>Mage::helper('eav')->__('Option Name'),
             'sortable'=>true,
             'index'=>'value',
-            // 'renderer'=> 'Hk_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_entityOption'
+            'renderer'=> 'Hk_Eavmgmt_Block_Adminhtml_Attribute_Csv_EntityOption'
         ));
 
          $this->addColumn('sort_order', array(

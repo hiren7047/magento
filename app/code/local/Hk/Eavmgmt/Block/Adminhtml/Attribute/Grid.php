@@ -62,25 +62,11 @@ class Hk_Eavmgmt_Block_Adminhtml_Attribute_Grid extends Mage_Adminhtml_Block_Wid
             'index'     => 'source_model'
         ));
 
-        $this->addColumn('action',
-            array(
-                'header'    =>  Mage::helper('eav')->__('Options'),
-                'width'     => '100',
-                'type'      => 'action',
-                'getter'    => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption'   => Mage::helper('eav')->__('Options'),
-                        'url'       => array('base'=> '*/*/option'),
-                        'field'     => 'attribute_id'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false,
-                'index'     => 'stores',
-                'is_system' => true,
-        ));
-
+       $this->addColumn('showOption', array(
+                'header'    => Mage::helper('eav')->__('Show Option'),
+                'align'     => 'left',
+                'renderer'  => 'Hk_Eavmgmt_Block_Adminhtml_Attribute_Csv_Renderer_OptionLink'
+            ));
         $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
         return $this;
     }
