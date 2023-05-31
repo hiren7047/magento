@@ -57,36 +57,27 @@ class Hk_Productimport_Model_Productimport extends Mage_Core_Model_Abstract
 
     public function updateMainProduct($idxSkus)
     {
-        $productCollection = Mage::getModel('catalog/product')->getCollection();
-        $productSku = array_column($productCollection->getData(), 'sku');
-        $newProducts = array_diff($idxSkus, $productSku);
+       $resource = Mage::getSingleton('core/resource');
+        $connection = $resource->getConnection('core_write');
+        $sourceTableName = $resource->getTableName('productimport');
+        $destinationTableName = $resource->getTableName('cataloginventory_stock_item');
+
+        $query = "INSERT INTO {$destinationTableName} (product_id, qty, stock_id)
+                        SELECT product_id, quantity , 1
+                        FROM {$sourceTableName}";
+        $connection->query($query);
+
+        $destinationTableName = $resource->getTableName('catalog_product_entity_int');
+        $query = "INSERT INTO {$destinationTableName} (entity_type_id, attribute_id, store_id,entity_id,value)
+                        SELECT 4 , 98 , 0 , product_id , status
+                        FROM {$sourceTableName}";
+        $connection->query($query);
         
-        if($newProducts){
-            foreach ($newProducts as $sku) {
-                $data[] = [
-                    'sku'=>$sku,
-                    'type_id'=>'simple',
-                    'entity_type_id'=>4,
-                    'attribute_set_id'=>4,
-                    'created_at'=>now(),
-                ];
-            }
-            // $stockItem = Mage::getModel('cataloginventory/stock_item');
-            // $stockItem->assignProduct($newProduct);
-            // $stockItem->setData('is_in_stock', 1);
-            // $stockItem->setData('qty', 1);
-            // $product->setStockItem($stockItem);
-
-            if($data){
-                $resource = Mage::getSingleton('core/resource');
-                $tableName = $resource->getTableName('catalog_product_entity');
-                $writeConnection = $resource->getConnection('core_write');
-                $writeConnection->insertMultiple($tableName, $data);
-                // die;
-            }
-        }        
-
-        return true;    
+        $query = "INSERT INTO {$destinationTableName} (entity_type_id, attribute_id, store_id,entity_id,value)
+                        SELECT 4 , 104 , 0 , product_id , 4
+                        FROM {$sourceTableName}";
+        $connection->query($query);
+        return true;
     }
 
     public function checkBrand()
