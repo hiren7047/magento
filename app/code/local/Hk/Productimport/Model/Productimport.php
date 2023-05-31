@@ -7,59 +7,88 @@ class Hk_Productimport_Model_Productimport extends Mage_Core_Model_Abstract
         $this->_init('productimport/productimport');
     }
 
-    public function updateMainBrand($productimportBrandNames)
+   public function updateMainBrand($idxBrandNames)
     {
         $brandCollection = Mage::getModel('brand/brand')->getCollection();
         $brandNames = $brandCollection->getConnection()
             ->fetchPairs($brandCollection->getSelect()->columns(['brand_id','name']));
 
-        $newBrands = array_diff($productimportBrandNames, $brandNames);
-        foreach ($newBrands as $brandName) {
-            $brand = Mage::getModel('brand/brand');
-            $brand->name = $brandName;
-            $brand->save();
+        $newBrands = array_diff($idxBrandNames, $brandNames);
+
+        $data = null;
+        foreach ($newBrands as $name) {
+            $data[] = ['name'=>$name,'created_at'=>now()];
         }
 
-        $newBrandNames = $brandCollection->getConnection()
-            ->fetchPairs($brandCollection->getSelect()->columns(['brand_id','name']));
-        return $newBrandNames;    
+        if($data){
+            $resource = Mage::getSingleton('core/resource');
+            $tableName = $resource->getTableName('brand');
+            $writeConnection = $resource->getConnection('core_write');
+            $writeConnection->insertMultiple($tableName, $data);
+        }
+
+        return true;
     }
-    public function updateMainCollection($productImportCollectionNames)
+
+   public function updateMainCollection($idxCollectionNames)
     {
-        $collection = Mage::getModel('collection/collection')->getCollection();
-        $collectionName = $collection->getConnection()
-            ->fetchPairs($collection->getSelect()->columns(['collection_id','name']));
+        $attribute = Mage::getModel('catalog/resource_eav_attribute')->loadByCode('catalog_product','collection');
 
-        $newCollectios = array_diff($productImportCollectionNames, $collectionName);
-        foreach ($newCollectios as $collectionName) {
-            $collectionmodel = Mage::getModel('collection/collection');
-            $collectionmodel->name = $collectionName;
-            $collectionmodel->save();
+        $options = $attribute->getSource()->getAllOptions();
+        $existOption = array_filter(array_column($options,'label'));
+
+        $newOptions = array_diff($idxCollectionNames, $existOption);
+        if($newOptions){
+            $count = 1;
+            foreach ($newOptions as $key => $value) 
+            {
+                $option['attribute_id'] = $attribute->getId();
+                $option['value'] = array(0 => array($value));
+                $option['sort_order'] = $count;
+
+                $setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+                $setup->addAttributeOption($option);
+                $count++;
+            }
         }
 
-        $newCollectionNames = $collection->getConnection()
-            ->fetchPairs($collection->getSelect()->columns(['collection_id','name']));
-        return $newCollectionNames;    
+        return true;    
     }
 
-     public function updateMainProduct($productImportCollectionNames)
+    public function updateMainProduct($idxSkus)
     {
-        $collection = Mage::getModel('product/product')->getCollection();
-        foreach($collection as $product){
-            $collectionName[$product->getData('product_id')] = $product->getData('sku');
-        }
-        $newCollectios = array_diff($productImportCollectionNames, $collectionName);
-        foreach ($newCollectios as $collectionName) {
-            $collectionmodel = Mage::getModel('product/product');
-            $collectionmodel->sku = $collectionName;
-            $collectionmodel->save();
-        }
+        $productCollection = Mage::getModel('catalog/product')->getCollection();
+        $productSku = array_column($productCollection->getData(), 'sku');
+        $newProducts = array_diff($idxSkus, $productSku);
+        
+        if($newProducts){
+            foreach ($newProducts as $sku) {
+                $data[] = [
+                    'sku'=>$sku,
+                    'type_id'=>'simple',
+                    'entity_type_id'=>4,
+                    'attribute_set_id'=>4,
+                    'created_at'=>now(),
+                ];
+            }
+            // $stockItem = Mage::getModel('cataloginventory/stock_item');
+            // $stockItem->assignProduct($newProduct);
+            // $stockItem->setData('is_in_stock', 1);
+            // $stockItem->setData('qty', 1);
+            // $product->setStockItem($stockItem);
 
-         foreach($collection as $product){
-            $newCollectionNames1[$product->getData('product_id')] = $product->getData('sku');
-        }
-        return $newCollectionNames1;    
+            if($data){
+                $resource = Mage::getSingleton('core/resource');
+                $tableName = $resource->getTableName('catalog_product_entity');
+                $writeConnection = $resource->getConnection('core_write');
+                $writeConnection->insertMultiple($tableName, $data);
+                // die;
+            }
+        }        
+
+        return true;    
     }
+
     public function checkBrand()
     {
         $idxBrandId = $this->getData('brand_id');

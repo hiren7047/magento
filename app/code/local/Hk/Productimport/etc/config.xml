@@ -1,26 +1,10 @@
 <config>
     <modules>
         <Hk_Productimport>    
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </Hk_Productimport>
     </modules>
-    <frontend>
-        <!-- <routers>
-            <Productimport>
-                <use>standard</use>
-                <args>
-                    <module>Hk_Productimport</module>
-                    <frontName>productimport</frontName>
-                </args>
-            </Productimport>
-        </routers> -->
-        <layout>
-            <updates>
-                <Productimport module="Hk_Productimport">
-                    <file>Hk_Productimport.xml</file>
-                </Productimport>
-            </updates>
-        </layout>
+    <frontend>       
     </frontend>
     <global>
         <events>
@@ -53,11 +37,6 @@
             <productimport>
                 <class>Hk_Productimport_Block</class>
             </productimport>
-            <adminhtml>
-                <rewrite>
-                    <catalog_product_edit_tab_attributes>Hk_Productimport_Block_Adminhtml_Productimport_Catalog_Product_Edit_Tab_Attributes</catalog_product_edit_tab_attributes>
-                </rewrite>
-            </adminhtml>
         </blocks>
 
         <resources>
