@@ -7,17 +7,6 @@
     <frontend>       
     </frontend>
     <global>
-        <events>
-            <adminhtml_catalog_product_edit_prepare_form>
-                <observers>
-                    <Hk_Productimport_Model_Observer>
-                        <type>singleton</type>
-                        <class>productimport/observer</class>
-                        <method>customObserver</method>
-                    </Hk_Productimport_Model_Observer>
-                </observers>
-            </adminhtml_catalog_product_edit_prepare_form>
-        </events>
   <models>
             <productimport>
                 <class>Hk_Productimport_Model</class>
