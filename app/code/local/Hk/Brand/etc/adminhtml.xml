@@ -2,7 +2,7 @@
 	<menu>
 		<brand module="brand">
             <title>Brand</title>
-            <sort_order>10</sort_order>
+            <sort_order>100</sort_order>
             <children>
                 <manageBrand module="brand">
                     <title>Manage Brands</title>

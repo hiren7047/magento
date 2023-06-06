@@ -1,39 +1,12 @@
 <config>
     <modules>
         <Hk_Brand>    
-            <version>1.0.0</version>
+            <version>0.1.1</version>
         </Hk_Brand>
     </modules>
-    <frontend>
-        <!-- <routers>
-            <Brand>
-                <use>standard</use>
-                <args>
-                    <module>Hk_Brand</module>
-                    <frontName>brand</frontName>
-                </args>
-            </Brand>
-        </routers> -->
-        <layout>
-            <updates>
-                <Brand module="Hk_Brand">
-                    <file>Hk_Brand.xml</file>
-                </Brand>
-            </updates>
-        </layout>
+    <frontend>   
     </frontend>
     <global>
-        <events>
-            <adminhtml_catalog_product_edit_prepare_form>
-                <observers>
-                    <Hk_Brand_Model_Observer>
-                        <type>singleton</type>
-                        <class>brand/observer</class>
-                        <method>customObserver</method>
-                    </Hk_Brand_Model_Observer>
-                </observers>
-            </adminhtml_catalog_product_edit_prepare_form>
-        </events>
         <models>
             <brand>
                 <class>Hk_Brand_Model</class>
@@ -52,17 +25,6 @@
                 </entities>
             </brand_resource>
         </models>
-        <blocks>
-            <brand>
-                <class>Hk_Brand_Block</class>
-            </brand>
-            <adminhtml>
-                <rewrite>
-                    <catalog_product_edit_tab_attributes>Hk_Brand_Block_Adminhtml_Brand_Catalog_Product_Edit_Tab_Attributes</catalog_product_edit_tab_attributes>
-                </rewrite>
-            </adminhtml>
-        </blocks>
-
         <resources>
             <brand_setup>
                 <setup>
@@ -96,15 +58,6 @@
         </helpers>
     </global>
     <admin>
-        <!-- <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <Hk_Brand>Hk_Brand_Adminhtml</Hk_Brand>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers> -->
         <routers>
             <Brand>
                 <use>admin</use>
@@ -114,12 +67,5 @@
                 </args>
             </Brand>
         </routers>
-         <layout>
-            <updates>
-                <brand>
-                    <file>brand.xml</file>
-                </brand>
-            </updates>
-        </layout>
     </admin>
 </config>
