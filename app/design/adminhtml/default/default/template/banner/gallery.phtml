@@ -1,0 +1,111 @@
+<style type="text/css">
+    #banner_gallery {
+      margin-bottom: 20px;
+    }
+
+    .data-grid {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-grid th,
+    .data-grid td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .data-grid th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+
+    .data-grid tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .data-grid input[type="text"],
+    .data-grid select {
+      width: 90%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .data-grid input[type="checkbox"] {
+      margin: 0;
+    }
+
+    .data-grid input[type="checkbox"]:focus {
+      outline: none;
+    }
+
+    .data-grid input[type="checkbox"] + label {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .data-grid input[type="checkbox"] + label:before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .data-grid input[type="checkbox"]:checked + label:before {
+      background-color: #337ab7;
+      border-color: #337ab7;
+    }
+
+    .data-grid input[type="checkbox"]:checked + label:after {
+      content: "\f00c";
+      font-family: FontAwesome;
+      display: inline-block;
+      color: #fff;
+      font-size: 12px;
+      width: 16px;
+      height: 16px;
+      text-align: center;
+      line-height: 16px;
+      vertical-align: middle;
+    }
+</style>
+<?php
+$bannerCollection = $this->getBanner();
+$groupId = $this->getRequest()->getParam('group_id');
+?>
+<div id="banner_gallery" class="grid">
+    <table class="data-grid" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th><?php echo $this->__('Image'); ?></th>
+                <th><?php echo $this->__('Position'); ?></th>
+                <th><?php echo $this->__('Status'); ?></th>
+                <th><?php echo $this->__('Remove'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($bannerCollection as $banner): ?>
+                <tr>
+                    <td><img src="<?php echo Mage::getBaseUrl('media').$this->escapeHtml($banner->getImage()); ?>" width="50px"></td>
+                    <td><input type="text" name="position[<?php echo $banner->getId(); ?>]" value="<?php echo $this->escapeHtml($banner->getPosition()); ?>" /></td>
+                    <td>
+                        <select name="status[<?php echo $banner->getId(); ?>]">
+                            <option value="1" <?php if ($banner->getStatus() == 1) echo 'selected="selected"'; ?>><?php echo $this->__('Enabled'); ?></option>
+                            <option value="0" <?php if ($banner->getStatus() == 0) echo 'selected="selected"'; ?>><?php echo $this->__('Disabled'); ?></option>
+                        </select>
+                    </td>
+                    <td><input type="checkbox" name="remove[<?php echo $banner->getId(); ?>]" /></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<form id="file-upload-form" method="post" action="<?php echo $this->getUrl('*/*/upload',['group_id'=>$groupId]) ?>" enctype="multipart/form-data">
+<?php echo $this->getBlockHtml('formkey'); ?>
+    <input type="file" name="file[]" multiple/>
+    <button type="submit" id="upload-button">Upload</button>
+</form>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hk_Banner>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Hk_Banner>
+    </modules>
+</config>
