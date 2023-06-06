@@ -12,7 +12,6 @@ class Hk_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
 
     protected function _initAction()
     {
-        // load layout, set active menu and breadcrumbs
         $this->loadLayout()
             ->_setActiveMenu('brand/brand')
             ->_addBreadcrumb(Mage::helper('brand')->__('Brand Manager'), Mage::helper('brand')->__('Brand Manager'))
@@ -33,6 +32,12 @@ class Hk_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
 
         if ($id) {
             $model->load($id);
+            if (! $model->getId()) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('brand')->__('This page no longer exists.'));
+                $this->_redirect('*/*/');
+                return;
+            }
         }
         $this->_title($model->getId() ? $model->getTitle() : $this->__('New Brand'));
 
@@ -66,7 +71,6 @@ class Hk_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
     public function saveAction()
     {
         try {
-
             $model = Mage::getModel('brand/brand');
             $data = $this->getRequest()->getPost('brand');
             $brandId = $this->getRequest()->getParam('id');
@@ -76,36 +80,39 @@ class Hk_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
             }
 
             $model->setData($data)->setId($brandId);
-            if($model->getId()){
-                $model->updated_at = now();
+            if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL)
+            {
+                $model->setCreatedTime(now())->setUpdateTime(now());
+            } 
+            else {
+                $model->setUpdateTime(now());
             }
-            else{
-                $model->created_at = now();
-            }
+
             $model->save();
-            if(isset($_FILES['image']['name'])) {
+
+            if (isset($_FILES['image']['name']) && ($_FILES['image']['name'] != '')) 
+            {
                 try {
                     $uploader = new Varien_File_Uploader('image');
-                    $uploader->setAllowedExtensions(array('jpg','jpeg','png')); // or pdf or anything
+                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png', 'webp'));
                     $uploader->setAllowRenameFiles(false);
                     $uploader->setFilesDispersion(false);
+                    
                     $path = Mage::getBaseDir('media') . DS . 'brand' . DS;
-                    $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-                    $imagegg = $path.$model->getId().'.'.$ext;
-                    if ($uploader->save($path, $model->getId().'.'.$ext)) {
-                        $model->image = 'brand/'.$model->getId().'.'.$ext;
+                    $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                    if ($uploader->save($path, $model->getId().'.'.$extension)) {
+                        $model->image = "brand/".$model->getId().".".$extension;
                         $model->save();
+                        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Image was successfully uploaded'));
                     }
-                    if($model->getId()){
-                            $model->updated_at = now();
-                        }
-                        else{
-                            $model->created_at = now();
-                        }
-                }catch(Exception $e) {
+                    
+                    // $imageName = $uploader->getUploadedFileName();
+
+                } catch (Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 }
             }
+
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Brand was successfully saved'));
             Mage::getSingleton('adminhtml/session')->setFormData(false);
              
@@ -149,13 +156,12 @@ class Hk_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
     {
         $brandIds = $this->getRequest()->getParam('brand');
         if(!is_array($brandIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select Brand(s).'));
+             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select brand(s).'));
         } else {
             try {
                 $brand = Mage::getModel('brand/brand');
                 foreach ($brandIds as $brandId) {
-                    $brand
-                        ->load($brandId)
+                    $brand->load($brandId)
                         ->delete();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(

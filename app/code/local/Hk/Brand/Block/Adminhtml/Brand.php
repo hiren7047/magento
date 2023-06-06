@@ -21,7 +21,7 @@ class Hk_Brand_Block_Adminhtml_Brand extends Mage_Adminhtml_Block_Widget_Grid_Co
 
     protected function _isAllowedAction($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('brand/adminhtml_brand/' . $action);
+        return Mage::getSingleton('admin/session')->isAllowed('brands/adminhtml_brand/' . $action);
     }
 
 }

@@ -16,18 +16,16 @@ class Hk_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml_Block_
         ));
 
         $fieldset->addField('image', 'image', array(
-            'label' => Mage::helper('brand')->__('Upload Banner'),
+            'label' => Mage::helper('brand')->__('Image'),
             'class' => 'required-entry',
-            'required' => true,
-            //'readonly' => true,
-            //'renderer' => 'banner/adminhtml_banner_renderer_image',
+            'required' => false,
             'name' => 'image',
         ));
 
-        $fieldset->addField('description','text', array(
+        $fieldset->addField('description', 'text', array(
             'label' => Mage::helper('brand')->__('Description'),
             'required' => true,
-            'name' => 'brand[description]'
+            'name' => 'brand[description]',
         ));
 
         if ( Mage::getSingleton('adminhtml/session')->getBrandData() )

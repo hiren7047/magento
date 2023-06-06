@@ -1,20 +1,17 @@
 <?php
 
-class Hk_Brand_Block_Adminhtml_Brand_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+class Hk_Idx_Block_Adminhtml_Idx_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     public function __construct()
     {
-
-        $this->_objectId   = 'brand_id';
+        $this->_objectId   = 'index';
         parent::__construct();
-        $this->_blockGroup = 'brand';
-        $this->_controller = 'adminhtml_brand';
-        $this->_headerText = Mage::helper('brand')->__('Manage Brands');
-
-
+        $this->_blockGroup = 'idx';
+        $this->_controller = 'adminhtml_idx';
+        $this->_headerText = Mage::helper('idx')->__('Manage idx');
 
         if ($this->_isAllowedAction('save')) {
-            $this->_updateButton('save', 'label', Mage::helper('brand')->__('Save Brand'));
+            $this->_updateButton('save', 'label', Mage::helper('idx')->__('Save idx'));
             $this->_addButton('saveandcontinue', array(
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
                 'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
@@ -25,25 +22,15 @@ class Hk_Brand_Block_Adminhtml_Brand_Edit extends Mage_Adminhtml_Block_Widget_Fo
         }
 
         if ($this->_isAllowedAction('delete')) {
-            $this->_updateButton('delete', 'label', Mage::helper('brand')->__('Delete Brand'));
+            $this->_updateButton('delete', 'label', Mage::helper('idx')->__('Delete idx'));
         } else {
             $this->_removeButton('delete');
         }
     }
 
-    public function getHeaderText()
-    {
-        if (Mage::registry('brand_edit')->getId()) {
-            return Mage::helper('brand')->__("Edit Brand '%s'", $this->escapeHtml(Mage::registry('brand_edit')->getTitle()));
-        }
-        else {
-            return Mage::helper('brand')->__('New Brand');
-        }
-    }
-
     protected function _isAllowedAction($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('brand/adminhtml_brand/' . $action);
+        return Mage::getSingleton('admin/session')->isAllowed('idx/adminhtml_idx/' . $action);
     }
 
     protected function _getSaveAndContinueUrl()
