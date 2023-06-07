@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <!-- <brand_index_index>
+        <default>
+            <remove name="right"/>
+        </default>
+        <reference name="content">
+            <block type="brand/brand" name="brand_banner" template="brand/banner.phtml" />
+        </reference>
+    </brand_index_index> -->
+    <cms_index_index translate="label">
+        <label>CMS Home Page</label>
+        <reference name="content">
+            <block type="core/template" name="default_home_page1" template="brand/banner.phtml"/>
+        </reference>
+    </cms_index_index>
+</layout>

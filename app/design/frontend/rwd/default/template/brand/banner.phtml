@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brand Cards</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .card p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div style="display:flex;">
+        <?php foreach ($this->getBrands() as $brand) : ?>
+        <div class="card">
+            <img src="<?php echo $brand->image; ?>" alt="Brand 1">
+            <h3><?php echo $brand->name; ?></h3>
+            <p><?php echo $brand->description; ?></p>
+            <a href="brand1.html">Learn More</a>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</body>
+</html>

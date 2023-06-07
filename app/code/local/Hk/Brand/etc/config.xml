@@ -1,10 +1,26 @@
 <config>
     <modules>
         <Hk_Brand>    
-            <version>0.1.1</version>
+            <version>0.2.0</version>
         </Hk_Brand>
     </modules>
-    <frontend>   
+     <frontend>
+        <routers>
+            <brand>
+                <use>standard</use>
+                <args>
+                    <module>Hk_Brand</module>
+                    <frontName>brand</frontName>
+                </args>
+            </brand>
+        </routers>
+        <layout>
+            <updates>
+                <brand>
+                    <file>brand.xml</file>
+                </brand>
+            </updates>
+        </layout> 
     </frontend>
     <global>
         <models>
