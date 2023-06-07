@@ -14,8 +14,8 @@ class Hk_Brand_Model_Observer
     {
         $brand = $observer->getBrand();
         $urlKey = $this->prepareRewrite($brand);
-        $brand->getId();
-        $rewrite = Mage::getModel('core/url_rewrite');
+        $idPath = 'brand/'.$brand->getId();
+        $rewrite = Mage::getModel('core/url_rewrite')->load($idPath, 'id_path');
         $rewrite->setStoreId(1)
                 ->setIdPath('brand/' . $brand->getId())
                 ->setRequestPath($urlKey)
