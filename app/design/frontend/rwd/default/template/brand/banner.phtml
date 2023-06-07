@@ -31,10 +31,11 @@
     <div style="display:flex;">
         <?php foreach ($this->getBrands() as $brand) : ?>
         <div class="card">
-            <img src="<?php echo $brand->image; ?>" alt="Brand 1">
+            <?php $url = Mage::getBaseUrl('media'); ?>
+            <img src="<?php echo $url.$brand->image; ?>" alt="Brand 1">
             <h3><?php echo $brand->name; ?></h3>
             <p><?php echo $brand->description; ?></p>
-            <a href="brand1.html">Learn More</a>
+            <a href="<?php  echo $this->getRewriteUrl($brand);  ?>">Learn More</a>
         </div>
         <?php endforeach; ?>
     </div>

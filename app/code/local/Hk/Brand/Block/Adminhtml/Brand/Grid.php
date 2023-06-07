@@ -41,6 +41,13 @@ class Hk_Brand_Block_Adminhtml_Brand_Grid extends Mage_Adminhtml_Block_Widget_Gr
             'renderer' => 'brand/adminhtml_brand_grid_renderer_image',
         ));
 
+        $this->addColumn('banner_image', array(
+            'header'    => Mage::helper('brand')->__('Banner Image'),
+            'align'     => 'left',
+            'index'     => 'banner_image',
+            'renderer' => 'brand/adminhtml_brand_grid_renderer_bannerimage',
+        ));
+
         $this->addColumn('description', array(
             'header'    => Mage::helper('brand')->__('Description'),
             'align'     => 'left',

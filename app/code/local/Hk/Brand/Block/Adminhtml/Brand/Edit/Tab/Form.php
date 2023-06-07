@@ -18,14 +18,33 @@ class Hk_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml_Block_
         $fieldset->addField('image', 'image', array(
             'label' => Mage::helper('brand')->__('Image'),
             'class' => 'required-entry',
-            'required' => false,
+            'required' => true,
             'name' => 'image',
+        ));
+
+        $fieldset->addField('banner_image', 'image', array(
+            'label' => Mage::helper('brand')->__('Banner Image'),
+            'class' => 'required-entry',
+            'required' => true,
+            'name' => 'banner_image',
         ));
 
         $fieldset->addField('description', 'text', array(
             'label' => Mage::helper('brand')->__('Description'),
             'required' => true,
             'name' => 'brand[description]',
+        ));
+
+        $fieldset->addField('status', 'text', array(
+            'label' => Mage::helper('brand')->__('Status'),
+            'required' => true,
+            'name' => 'brand[status]',
+        ));
+
+        $fieldset->addField('sort_order', 'text', array(
+            'label' => Mage::helper('brand')->__('Sort Order'),
+            'required' => true,
+            'name' => 'brand[sort_order]',
         ));
 
         if ( Mage::getSingleton('adminhtml/session')->getBrandData() )
@@ -41,9 +60,3 @@ class Hk_Brand_Block_Adminhtml_Brand_Edit_Tab_Form extends Mage_Adminhtml_Block_
     }
 
 }
-
-
-
-
-
-    

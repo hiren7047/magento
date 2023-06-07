@@ -9,7 +9,7 @@ class Hk_Brand_Model_Rewrite extends Mage_Core_Model_Abstract
 
     public function generateRewrite($brandId, $requestPath, $targetPath, $storeId = 0, $isSystem = 0)
     {
-        $rewrite = Mage::getModel('brand/rewrite');
+        $rewrite = Mage::getModel('brand/rewrite')->load($brandId,'brand_id');
         $rewrite->setBrandId($brandId);
         $rewrite->setRequestPath($requestPath);
         $rewrite->setTargetPath($targetPath);

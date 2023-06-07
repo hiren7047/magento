@@ -24,4 +24,12 @@ class Hk_Brand_Block_Adminhtml_Brand extends Mage_Adminhtml_Block_Widget_Grid_Co
         return Mage::getSingleton('admin/session')->isAllowed('brands/adminhtml_brand/' . $action);
     }
 
+    public function getBrands()
+    {
+        $brands = Mage::getModel('brand/brand')->getCollection();
+        $brands->addFieldToFilter('status',1);
+        $brands->setOrder('sort_order', 'ASC');
+        return $brands;
+    }
+
 }
