@@ -1,13 +1,39 @@
 <config>
     <modules>
         <Hk_Brand>    
-            <version>0.1.1</version>
+            <version>0.2.0</version>
         </Hk_Brand>
     </modules>
-    <frontend>   
+     <frontend>
+        <routers>
+            <brand>
+                <use>standard</use>
+                <args>
+                    <module>Hk_Brand</module>
+                    <frontName>brand</frontName>
+                </args>
+            </brand>
+        </routers>
+        <layout>
+            <updates>
+                <brand>
+                    <file>brand.xml</file>
+                </brand>
+            </updates>
+        </layout> 
     </frontend>
     <global>
-        <models>
+        <events>
+            <brand_save_after>
+                <observers>
+                    <hk_brand_generate_brand_rewrite_url>
+                        <class>Hk_Brand_Model_Observer</class>
+                        <method>generateRewriteUrl</method>
+                    </hk_brand_generate_brand_rewrite_url>
+                </observers>
+            </brand_save_after>
+        </events>
+         <models>
             <brand>
                 <class>Hk_Brand_Model</class>
                 <resourceModel>brand_resource</resourceModel>
@@ -19,9 +45,9 @@
                     <brand>
                         <table>brand</table>
                     </brand>
-                    <brand_address>
-                        <table>brand_address</table>
-                    </brand_address>
+                    <brand_rewrite>
+                        <table>brand_rewrite</table>
+                    </brand_rewrite>
                 </entities>
             </brand_resource>
         </models>

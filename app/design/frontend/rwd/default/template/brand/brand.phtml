@@ -1,0 +1,67 @@
+<?php $brand = $this->getBrand(); ?>
+<?php $url = Mage::getBaseUrl('media'); ?>
+<style>
+    .banner {
+        background-image: url("<?php echo $url.$brand->image; ?>");
+        background-size: cover;
+        background-position: center;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .banner h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .banner p {
+        font-size: 18px;
+    }
+
+    .content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+     .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .card p {
+            margin-top: 10px;
+        }
+</style>
+<div class="banner">
+    <div class="content">
+        <h1>Welcome to <?php echo $brand->name; ?> Brand</h1>
+        <h6><?php echo $brand->description; ?></h6>
+    </div>
+    
+</div>
+<div style="display:flex;">
+        <?php foreach ($this->getProducts($brand) as $product) : ?>
+        <div class="card">
+            <h3><?php echo $product->sku; ?></h3>
+            <p style="color: black;"><?php echo $product->description; ?></p>
+        </div>
+        <?php endforeach; ?>
+    </div>
