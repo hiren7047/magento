@@ -27,12 +27,44 @@ class Hk_Brand_Block_Brand extends Mage_Core_Block_Template
         return $requestPath;
     }
 
-    public function getProducts($brand)
+     public function getProductsByBrand()
     {
-        $productModel = Mage::getModel('catalog/product');
-        $productCollection = $productModel->getCollection();
-        $productCollection->addAttributeToFilter('brand',$brand->getId());
+        $brandAttributeCode = 'brand';
+        $brandAttribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $brandAttributeCode);
 
-        return $productCollection;
+        $brandValue = $this->getRequest()->getParam('brand_id');
+        $productCollection = Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToFilter($brandAttributeCode, $brandValue)
+            ->getAllIds();
+
+        $categoryId = $this->getRequest()->getParam('category');
+        $products = Mage::getModel('catalog/product')->getCollection()
+            ->addIdFilter($productCollection)
+            ->addCategoryFilter(Mage::getModel('catalog/category')->load($categoryId))
+            ->addAttributeToSelect('*');
+        return $products;
     }
+
+       public function getProductUrl($product)
+    {
+        $productId = $product->getId(); 
+        $rewrite = Mage::getModel('core/url_rewrite')->load($productId,'product_id');
+        $requestPath = $rewrite->getRequestPath();
+        return $requestPath;
+    }
+
+    public function getCategory()
+    {
+         $categories = Mage::getModel('catalog/category')
+        ->getCollection()
+        ->addAttributeToSelect('*')
+        ->addIsActiveFilter();
+
+        return $categories;
+    }
+
+   
+
+
+
 }

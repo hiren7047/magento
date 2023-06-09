@@ -1,15 +1,22 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <brand_index_view>
         <default>
             <remove name="right"/>
+            <remove name="header"/>
+            <remove name="footer"/>
+
+
         </default>
+    <brand_index_view>
+        <remove name="footer"/>
         <reference name="content">
             <block type="brand/brand" name="brand_banner" template="brand/brand.phtml" />
         </reference>
+        <reference name="left">
+            <block type="brand/brand" name="brand_left" template="brand/left.phtml" />
+        </reference>
     </brand_index_view>
     <cms_index_index translate="label">
-        <remove name="right"/>
         <label>CMS Home Page</label>
         <reference name="content">
             <block type="brand/brand" name="default_home_page1" template="brand/banner.phtml"/>

@@ -17,7 +17,6 @@ class Ccc_Practice_Adminhtml_PracticeController extends Mage_Adminhtml_Controlle
     }
     public function testAction()
     {
-        echo 11; die;
     }
 
 	public function indexAction()
