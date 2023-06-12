@@ -23,6 +23,17 @@
         </layout>
     </frontend>
     <global>
+    <template>
+        <email>
+            <vendor_login_email_template translate="label" module="vendor">
+                <label>Vendor Login Email</label>
+                <file>vendor_login.html</file>
+                <type>html</type>
+            </vendor_login_email_template>
+        </email>
+    </template>
+</global>
+    <global>
         <models>
             <vendor>
                 <class>Hk_Vendor_Model</class>

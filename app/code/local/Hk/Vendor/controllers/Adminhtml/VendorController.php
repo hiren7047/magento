@@ -8,6 +8,8 @@ class Hk_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
        	$this->loadLayout();
        	$this->_addContent($this->getLayout()->createBlock('vendor/adminhtml_vendor'));
 	   	$this->renderLayout();
+        $model = Mage::getModel('vendor/vendor')->load(1);
+              $this->sendMail($model);
     }
 
     protected function _initAction()
@@ -76,6 +78,9 @@ class Hk_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
     public function saveAction()
     {
         try {
+
+
+            
             $model = Mage::getModel('vendor/vendor');
             $addressModel = Mage::getModel('vendor/vendor_address');
             $addressData = $this->getRequest()->getPost('address');
@@ -96,9 +101,16 @@ class Hk_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
                 $model->setUpdateTime(now());
             }
             $model->save();
+            // $checkboxValue = $this->getRequest()->getParam('password_box');
+            // if ($checkboxValue == null) {
+            //   $model = Mage::getModel('vendor/vendor')->load($vendorId);
+            //   $this->sendMail($model);
+
+            // }
             if ($model->save()) {
                 if ($vendorId) {
                     $addressModel->load($vendorId,'vendor_id');
+
                 }
 
                 $addressModel->setData(array_merge($addressModel->getData(),$addressData));
@@ -166,4 +178,100 @@ class Hk_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
 
         $this->_redirect('*/*/index');
     }
+    public function massStatusInactiveUpdateAction()
+    {
+        $vendorIds = $this->getRequest()->getParam('vendor');
+        if(!is_array($vendorIds)) {
+             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select Vendor(s).'));
+        } else {
+            try {
+                $vendor = Mage::getModel('vendor/vendor');
+                foreach ($vendorIds as $vendorId) {
+                    $vendor
+                        ->load($vendorId);
+                    $vendor->status = 0;
+                    $vendor->save();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('Total of %d record(s) were InActivated.', count($vendorIds))
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+    public function massStatusActiveUpdateAction()
+    {
+        $vendorIds = $this->getRequest()->getParam('vendor');
+        if(!is_array($vendorIds)) {
+             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select Vendor(s).'));
+        } else {
+            try {
+                $vendor = Mage::getModel('vendor/vendor');
+                foreach ($vendorIds as $vendorId) {
+                    $vendor
+                        ->load($vendorId);
+                    $vendor->status = 1;
+                    $vendor->save();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('Total of %d record(s) were Activated.', count($vendorIds))
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+    public function statesAction()
+    {
+        $countryId = $this->getRequest()->getPost('country_id');
+        // $countryId = 'US';
+
+
+$states = Mage::getModel('directory/region')->getResourceCollection()
+    ->addCountryFilter($countryId)
+    ->load()
+    ->toOptionArray();
+$this->getResponse()->setHeader('Content-type', 'application/json');
+$this->getResponse()->setBody(json_encode($states));
+        
+    }
+
+   public function sendMail($model)
+{
+    $storeId = Mage::app()->getStore()->getId();
+
+    $emailTemplate = Mage::getModel('core/email_template')
+        ->loadDefault('vendor_register_email_template');
+
+    // Set sender information
+    $emailTemplate->setSenderName('Admin');
+    $emailTemplate->setSenderEmail('admin@example.com');
+
+    // Set recipient information
+    $emailTemplate->setTemplateSubject('Welcome to ' . Mage::app()->getStore()->getName());
+    $emailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId));
+
+    // Set email template variables
+    $emailTemplateVariables = array(
+        'store' => Mage::app()->getStore(),
+        'customer' => $model,
+        'store_email' => Mage::getStoreConfig('trans_email/ident_general/email'),
+        'store_phone' => Mage::getStoreConfig('general/store_information/phone'),
+        'phone' => '1234567890', // Replace with your desired phone value
+    );
+
+    // Send the email
+    echo "<pre>";
+    print_r($emailTemplate);
+    die;
+    $emailTemplate->send($model->getEmail(), $model->getName(), $emailTemplateVariables);
+}
+
+
+
 }

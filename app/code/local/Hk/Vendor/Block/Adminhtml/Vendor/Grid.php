@@ -80,11 +80,7 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
             'align'     => 'left',
             'index'     => 'email'
         ));
-         $this->addColumn('gender', array(
-            'header'    => Mage::helper('vendor')->__('Gender'),
-            'align'     => 'left',
-            'renderer'     => 'Hk_Vendor_Block_Adminhtml_Vendor_Grid_Renderer_Gender'
-        ));
+       
         $this->addColumn('status', array(
             'header'    => Mage::helper('vendor')->__('Status'),
             'align'     => 'left',
@@ -108,6 +104,17 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
         $this->getMassactionBlock()->addItem('delete', array(
              'label'    => Mage::helper('vendor')->__('Delete'),
              'url'      => $this->getUrl('*/*/massDelete'),
+             'confirm'  => Mage::helper('vendor')->__('Are you sure?')
+        ));
+
+        $this->getMassactionBlock()->addItem('statusactive', array(
+             'label'    => Mage::helper('vendor')->__('Status Active'),
+             'url'      => $this->getUrl('*/*/massStatusActiveUpdate'),
+             'confirm'  => Mage::helper('vendor')->__('Are you sure?')
+        ));
+         $this->getMassactionBlock()->addItem('statusinactive', array(
+             'label'    => Mage::helper('vendor')->__('Status InActive'),
+             'url'      => $this->getUrl('*/*/massStatusInactiveUpdate'),
              'confirm'  => Mage::helper('vendor')->__('Are you sure?')
         ));
         return $this;
