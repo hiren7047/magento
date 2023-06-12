@@ -33,15 +33,6 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'name' => 'vendor[email]',
         ));
         
-        $fieldset->addField('gender', 'radios', array(
-            'label' => Mage::helper('vendor')->__('Gender'),
-            'required' => false,
-            'name' => 'vendor[gender]',
-            'values'=>array(
-                array('value'=>1,'label'=>'Male'),
-                array('value'=>2,'label'=>'Female')
-            ),
-        ));
           $fieldset->addField('status', 'select', array(
             'label' => Mage::helper('vendor')->__('Status'),
             'required' => false,
@@ -51,12 +42,18 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Edit_Tab_Form extends Mage_Adminhtml_Bloc
                 array('value'=>2,'label'=>'InActive')
             ),
         ));
-          $fieldset->addField('checkbox_field', 'checkbox', array(
-    'label'    => 'Checkbox Field',
-    'name'     => 'checkbox_field',
-    'checked'  => true, // Set as checked by default if needed
-    'value'    => '1',  // Set the value to be submitted when checked
+        $request = Mage::app()->getRequest();
+        $paramValue = $request->getParam('vendor_id');
+        if(!$paramValue){
+             $fieldset->addField('checkbox_field', 'checkbox', array(
+            'label'    => 'Checkbox Field',
+            'name'     => 'checkbox_field',
+            'checked'  => true, // Set as checked by default if needed
+            'value'    => '1',  // Set the value to be submitted when checked
 ));
+        }
+         
+
 
 
 

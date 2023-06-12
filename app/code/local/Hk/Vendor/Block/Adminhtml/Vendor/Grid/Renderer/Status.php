@@ -9,7 +9,7 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Grid_Renderer_Status extends Mage_Adminht
             case '1':
                 $label = 'Active';
                 break;
-            case '2':
+            case '0':
                 $label = 'InActive';
                 break;
         }
