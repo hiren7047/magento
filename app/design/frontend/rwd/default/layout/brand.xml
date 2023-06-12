@@ -2,7 +2,6 @@
 <layout version="0.1.0">
         <default>
             <remove name="right"/>
-            <remove name="header"/>
             <remove name="footer"/>
 
 

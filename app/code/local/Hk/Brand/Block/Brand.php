@@ -55,16 +55,11 @@ class Hk_Brand_Block_Brand extends Mage_Core_Block_Template
 
     public function getCategory()
     {
-         $categories = Mage::getModel('catalog/category')
+        $categories = Mage::getModel('catalog/category')
         ->getCollection()
         ->addAttributeToSelect('*')
         ->addIsActiveFilter();
 
         return $categories;
     }
-
-   
-
-
-
 }

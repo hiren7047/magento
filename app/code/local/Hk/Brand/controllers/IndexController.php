@@ -14,7 +14,6 @@ class Hk_Brand_IndexController extends Mage_Core_Controller_Front_Action
 
     public function catAction()
     {
-        echo "<pre>";
         print_r($this->getCategoryProduct());
     }
 
@@ -26,15 +25,6 @@ class Hk_Brand_IndexController extends Mage_Core_Controller_Front_Action
         $productCollection = Mage::getModel('catalog/product')->getCollection()
             ->addCategoryFilter($category)
             ->addAttributeToSelect('*');
-
-        // foreach ($productCollection as $product) {
-        //     // Perform actions with the filtered products
-        //     print_r($product);
-        // }
-
         return $productCollection->toArray();
-
-
-
     }
 }
