@@ -73,3 +73,7 @@ dt                      { display:block; }
 /* Size */
 small                   { font-size:.9em; }
 big                     { font-size:1.25em; }
+
+.x-tree-node-el folder active-category x-tree-node-leaf {
+    background-color: yellow;
+}

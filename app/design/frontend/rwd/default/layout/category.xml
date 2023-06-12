@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <remove name="right"/>
+    </default>
+    <cms_index_index translate="label">
+        <reference name="content">
+            <block type="category/category" name="child_block" template="category/category.phtml" after="default_home_page1"/>
+        </reference>
+    </cms_index_index>
+</layout>
