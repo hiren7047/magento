@@ -13,6 +13,8 @@ CREATE TABLE {$this->getTable('vendor')} (
   `last_name` varchar(255) NOT NULL,
   `mobile` bigint(20) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `status` int(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `created_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

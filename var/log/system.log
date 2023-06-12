@@ -1,0 +1,1 @@
+2023-06-12T10:01:48+00:00 ERR (3): Notice: Undefined variable: isChecked  in C:\xampp\htdocs\2023\magento\app\code\local\Hk\Vendor\Block\Adminhtml\Vendor\Edit\Tab\Form.php on line 57

@@ -51,6 +51,14 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Edit_Tab_Form extends Mage_Adminhtml_Bloc
                 array('value'=>2,'label'=>'InActive')
             ),
         ));
+          $fieldset->addField('checkbox_field', 'checkbox', array(
+    'label'    => 'Checkbox Field',
+    'name'     => 'checkbox_field',
+    'checked'  => true, // Set as checked by default if needed
+    'value'    => '1',  // Set the value to be submitted when checked
+));
+
+
 
         if ( Mage::getSingleton('adminhtml/session')->getVendorData() )
         {

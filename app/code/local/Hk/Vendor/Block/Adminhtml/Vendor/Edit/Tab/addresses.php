@@ -4,56 +4,86 @@ class Hk_Vendor_Block_Adminhtml_Vendor_Edit_Tab_Addresses extends Mage_Adminhtml
 {
     protected function _prepareForm()
     {
+        
         $form = new Varien_Data_Form();
         $this->setForm($form);
 
-        $fieldset = $form->addFieldset('vendor_form',array('legend'=>Mage::helper('vendor')->__('Vendor Addresses')));
+        $fieldset = $form->addFieldset('vendor_form', array('legend' => Mage::helper('vendor')->__('Vendor Addresses')));
 
         $fieldset->addField('address', 'text', array(
-            'label' => Mage::helper('vendor')->__('Address'),
+            'label'    => Mage::helper('vendor')->__('Address'),
             'required' => false,
-            'name' => 'address[address]',
+            'name'     => 'address[address]',
         ));
 
-        $fieldset->addField('city','text', array(
-            'label' => Mage::helper('vendor')->__('City'),
+        $fieldset->addField('city', 'text', array(
+            'label'    => Mage::helper('vendor')->__('City'),
             'required' => false,
-            'name' => 'address[city]'
+            'name'     => 'address[city]'
         ));
 
-        $fieldset->addField('state', 'text', array(
-            'label' => Mage::helper('vendor')->__('State'),
-            'required' => false,
-            'name' => 'address[state]',
+        $countryCollection = Mage::getModel('directory/country')->getCollection();
+        $countryOptions = array();
+        foreach ($countryCollection as $country) {
+            $countryOptions[$country->getId()] = $country->getName();
+        }
+
+        $fieldset->addField('country', 'select', array(
+            'label'    => 'Country',
+            'name'     => 'country',
+            'values'   => $countryOptions,
+            'required' => true,
+            'onchange' => 'getStates(this.value)'
         ));
 
-        $fieldset->addField('country','text', array(
-            'label' => Mage::helper('vendor')->__('Country'),
+      $stateOptions = array();
+$fieldset->addField('state', 'select', array(
+    'label'    => 'State',
+    'name'     => 'state',
+    'values'   => $stateOptions,
+    'required' => true
+));
+
+$countryField = $form->getElement('country');
+$countryField->setAfterElementHtml('
+    <script type="text/javascript">
+        function getStates(countryId) {
+            var url = \'' . $this->getUrl('vendor/adminhtml_vendor/states') . '\';
+            
+            var stateElement = $("state");
+            new Ajax.Request(url, {
+                method: "post",
+                parameters: {
+                    country_id: countryId
+                },
+                onSuccess: function(response) {
+                    var stateOptions = JSON.parse(response.responseText);
+                    var optionsHtml = "";
+                    stateOptions.forEach(function(option) {
+                        optionsHtml += "<option value=\"" + option.value + "\">" + option.label + "</option>";
+                    });
+                    stateElement.update(optionsHtml);
+                },
+                onFailure: function() {
+                    stateElement.update("");
+                }
+            });
+        }
+    </script>
+');
+
+        $fieldset->addField('zipcode', 'text', array(
+            'label'    => Mage::helper('vendor')->__('Zipcode'),
             'required' => false,
-            'name' => 'address[country]'
+            'name'     => 'address[zipcode]'
         ));
 
-        $fieldset->addField('zipcode','text', array(
-            'label' => Mage::helper('vendor')->__('Zipcode'),
-            'required' => false,
-            'name' => 'address[zipcode]'
-        ));
-
-        if ( Mage::getSingleton('adminhtml/session')->getVendorData() )
-        {
+        if (Mage::getSingleton('adminhtml/session')->getVendorData()) {
             $form->setValues(Mage::getSingleton('adminhtml/session')->getVendorData());
             Mage::getSingleton('adminhtml/session')->setVendorData(null);
-        } elseif ( Mage::registry('address_edit') ) {
+        } elseif (Mage::registry('address_edit')) {
             $form->setValues(Mage::registry('address_edit')->getData());
         }
         return parent::_prepareForm();
-
     }
-
 }
-
-
-
-
-
-    

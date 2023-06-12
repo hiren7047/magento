@@ -14,7 +14,9 @@ CREATE TABLE `vendor_address` (
   `city` varchar(50) NOT NULL,
   `state` varchar(50) NOT NULL,
   `country` varchar(50) NOT NULL,
-  `zipcode` int(10) NOT NULL
+  `zipcode` int(10) NOT NULL,
+  `created_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `vendor_address`
