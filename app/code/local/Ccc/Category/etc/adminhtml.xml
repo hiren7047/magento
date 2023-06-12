@@ -1,16 +1,47 @@
-<?xml version="1.0"?>
 <config>
-    <menu>
-        <category translate="title" module="category">
+	<menu>
+		<category module="category">
             <title>Category</title>
             <sort_order>10</sort_order>
             <children>
-                <category translate="title" module="category">
-                    <title>Manage Category</title>
-                    <action>category/adminhtml_category/index</action>
-                    <sort_order>0</sort_order>
-                </category>
+                <managecategory module="category">
+                    <title>Manage Categories</title>
+            		<action>category/adminhtml_category/index</action>
+                    <sort_order>10</sort_order>
+                </managecategory>
             </children>
         </category>
-    </menu>
+	</menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everthing</title>
+            </all>
+            <admin>
+                <children>
+                    <category template="title" module="category">
+                        <title>Categoies</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <managecategory template="title" >
+                                <title>Manage category</title>
+                            </managecategory>
+                        </children>
+                    </category>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <category translate="title" module="category">
+                                        <title>categorys Section</title>
+                                        <sort_order>50</sort_order>
+                                    </category>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
 </config>

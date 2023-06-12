@@ -4,55 +4,72 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
 {
     public function indexAction()
     {
-        $this->_title($this->__('Category'))->_title($this->__('Manage Category'));
+        $this->_title($this->__('Category'))
+             ->_title($this->__('Manage Categorys'));
         $this->loadLayout();
-        $this->_addContent(
-            $this->getLayout()->createBlock('category/adminhtml_category', 'category')
-        );
+        $this->_addContent($this->getLayout()->createBlock('category/adminhtml_category'));
         $this->renderLayout();
     }
 
     protected function _initAction()
     {
+        // load layout, set active menu and breadcrumbs
         $this->loadLayout()
-            ->_setActiveMenu('vendor/vendor')
-            ->_addBreadcrumb(Mage::helper('vendor')->__('VENDOR'), Mage::helper('vendor')->__('VENDOR'))
-            ->_addBreadcrumb(Mage::helper('vendor')->__('Manage Vendor'), Mage::helper('vendor')->__('Manage Vendor'))
+            ->_setActiveMenu('category/category')
+            ->_addBreadcrumb(Mage::helper('category')->__('category Manager'), Mage::helper('category')->__('category Manager'))
+            ->_addBreadcrumb(Mage::helper('category')->__('Manage category'), Mage::helper('category')->__('Manage category'))
         ;
         return $this;
+    }
+    
+
+    public function editAction()
+    {
+        $this->_title($this->__('category'))
+             ->_title($this->__('categorys'))
+             ->_title($this->__('Edit categorys'));
+
+        // print_r($this->_addContent($this->getLayout()->createBlock('Ccc_category_Block_Adminhtml_category_Edit')));
+        $id = $this->getRequest()->getParam('category_id');
+        $model = Mage::getModel('category/category');
+        if ($id) {
+            $model->load($id);
+            if (! $model->getId()) {
+                Mage::getSingleton('adminhtml/session')->addError(
+                    Mage::helper('category')->__('This page no longer exists.'));
+                $this->_redirect('*/*/');
+                return;
+            }
+        }
+        // echo "<pre>";print_r($model->load($id));die;
+        $this->_title($model->getId() ? $model->getTitle() : $this->__('New category'));
+
+        $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+
+        if (!empty($data)) 
+        {
+            $model->setData($data);
+        }
+
+        Mage::register('category_edit',$model);
+
+        $this->_initAction()
+            ->_addBreadcrumb(
+                $id ? Mage::helper('category')->__('Edit category')
+                    : Mage::helper('category')->__('New category'),
+                $id ? Mage::helper('category')->__('Edit category')
+                    : Mage::helper('category')->__('New category'));
+
+        $this->_addContent($this->getLayout()->createBlock(' category/adminhtml_category_edit'))
+                ->_addLeft($this->getLayout()
+                ->createBlock('category/adminhtml_category_edit_tabs'));
+
+        $this->renderLayout();
     }
 
     public function newAction()
     {
         $this->_forward('edit');
-    }
-
-    public function editAction()
-    {
-        $id = $this->getRequest()->getParam('id');
-        $model = Mage::getModel('category/category')->load($id);
-        if ($model->getId() || $id == 0)
-        {
-            $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-            if (!empty($data))
-            {
-                $model->setData($data);
-            }
-            Mage::register('category_data', $model);
-
-            $this->loadLayout();
-            $this->_setActiveMenu('category/category');
-            $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Category Manager'), Mage::helper('adminhtml')->__('Category Manager'));
-            $this->_addBreadcrumb(Mage::helper('adminhtml')->__('Category News'), Mage::helper('adminhtml')->__('Category News'));
-             
-            $this->_addContent($this->getLayout()->createBlock(' category/adminhtml_category_edit'))
-                    ->_addLeft($this->getLayout()
-                    ->createBlock('category/adminhtml_category_edit_tabs'));
-            $this->renderLayout();
-        }else{
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('category')->__('Category does not exist'));
-            $this->_redirect('*/*/');
-        }
     }
 
     public function saveAction()
@@ -66,7 +83,9 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
             }
 
             $model->setData($data)->setId($this->getRequest()->getParam('id'));
-            if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL)
+
+            $model->setData($data)->setId($this->getRequest()->getParam('id'));
+            if ($model->getCreatedTime() == NULL || $model->getUpdateTime() == NULL)
             {
                 $model->setCreatedTime(now())->setUpdateTime(now());
             } 
@@ -75,7 +94,7 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
             }
             
             $model->save();
-            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('category')->__('Category was successfully saved'));
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('category')->__('category was successfully saved'));
             Mage::getSingleton('adminhtml/session')->setFormData(false);
              
             if ($this->getRequest()->getParam('back')) {
@@ -87,7 +106,7 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             Mage::getSingleton('adminhtml/session')->setFormData($data);
-            $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('category_id')));
             return;
         }
 
@@ -97,45 +116,20 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
 
     public function deleteAction()
     {
-        if( $this->getRequest()->getParam('id') > 0 ) {
+        if( $this->getRequest()->getParam('category_id') > 0 ) {
             try {
                 $model = Mage::getModel('category/category');
                  
-                $model->setId($this->getRequest()->getParam('id'))
+                $model->setId($this->getRequest()->getParam('category_id'))
                 ->delete();
                  
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Category was successfully deleted'));
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('category was successfully deleted'));
                 $this->_redirect('*/*/');
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('category_id')));
             }
         }
         $this->_redirect('*/*/');
     }
-
-    public function massDeleteAction()
-    {
-        $categoryIds = $this->getRequest()->getParam('category');
-        if(!is_array($categoryIds)) {
-             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select category(s).'));
-        } else {
-            try {
-                $category = Mage::getModel('category/category');
-                foreach ($categoryIds as $categoryId) {
-                    $category->reset()
-                        ->load($categoryId)
-                        ->delete();
-                }
-                Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('Total of %d record(s) were deleted.', count($categoryIds))
-                );
-            } catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-        }
-
-        $this->_redirect('*/*/index');
-    }
-
 }

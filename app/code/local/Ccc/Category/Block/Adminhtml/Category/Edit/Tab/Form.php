@@ -1,13 +1,13 @@
 <?php
 
-class Ccc_Category_Block_Adminhtml_Category_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+class Ccc_category_Block_Adminhtml_category_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
         $this->setForm($form);
 
-        $fieldset = $form->addFieldset('category_form',array('legend'=>Mage::helper('category')->__('Category information')));
+        $fieldset = $form->addFieldset('category_form',array('legend'=>Mage::helper('category')->__('category information')));
 
         $fieldset->addField('name', 'text', array(
             'label' => Mage::helper('category')->__('Name'),
@@ -15,30 +15,18 @@ class Ccc_Category_Block_Adminhtml_Category_Edit_Tab_Form extends Mage_Adminhtml
             'name' => 'name',
         ));
 
-        $fieldset->addField('description', 'text', array(
-            'label' => Mage::helper('category')->__('Description'),
-            'required' => false,
-            'name' => 'description',
-        ));
-
         $fieldset->addField('status', 'text', array(
             'label' => Mage::helper('category')->__('Status'),
-            'required' => false,
+            'required' => true,
             'name' => 'status',
         ));
 
-        $fieldset->addField('parent', 'text', array(
-            'label' => Mage::helper('category')->__('Parent Category'),
-            'required' => false,
-            'name' => 'parent',
-        ));
-
-        if ( Mage::getSingleton('adminhtml/session')->getVendorData() )
+        if ( Mage::getSingleton('adminhtml/session')->getcategoryData() )
         {
-            $form->setValues(Mage::getSingleton('adminhtml/session')->getVendorData());
-            Mage::getSingleton('adminhtml/session')->setVendorData(null);
-        } elseif ( Mage::registry('category_data') ) {
-            $form->setValues(Mage::registry('category_data')->getData());
+            $form->setValues(Mage::getSingleton('adminhtml/session')->getcategoryData());
+            Mage::getSingleton('adminhtml/session')->setcategoryData(null);
+        } elseif ( Mage::registry('category_edit') ) {
+            $form->setValues(Mage::registry('category_edit')->getData());
         }
         return parent::_prepareForm();
 

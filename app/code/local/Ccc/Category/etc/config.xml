@@ -1,10 +1,18 @@
-<?xml version="1.0"?>
 <config>
     <modules>
-        <Ccc_Category>
-            <version>0.1.0</version>
+        <Ccc_Category>    
+            <version>1.0.1</version>
         </Ccc_Category>
     </modules>
+    <frontend>
+         <layout>
+            <updates>
+                <category>
+                    <file>category.xml</file>
+                </category>
+            </updates>
+        </layout>
+    </frontend>
     <global>
         <models>
             <category>
@@ -13,6 +21,7 @@
             </category>
             <category_resource>
                 <class>Ccc_Category_Model_Resource</class>
+                <deprecatedNode>category_mysql4</deprecatedNode>
                 <entities>
                     <category>
                         <table>category</table>
@@ -30,25 +39,30 @@
                     <use>core_setup</use>
                 </connection>
             </category_setup>
-            <product_write>
+            <category_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </product_write>
-            <product_read>
+            </category_write>
+            <category_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </product_read>
+            </category_read>
         </resources>
         <blocks>
             <category>
                 <class>Ccc_Category_Block</class>
             </category>
+            <adminhtml>
+                <rewrite>
+                    <catalog_category_tree>Ccc_Category_Block_Adminhtml_Catalog_Category_Tree</catalog_category_tree>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <helpers>
-            <category>
-                <class>Ccc_Category_Helper</class>
+           <category>
+                  <class>Ccc_Category_Helper</class>
             </category>
         </helpers>
     </global>
@@ -63,4 +77,13 @@
             </category>
         </routers>
     </admin>
+    <!-- <adminhtml>
+        <layout>
+            <updates>
+                <category>
+                    <file>category.xml</file>
+                </category>
+            </updates>
+        </layout>
+    </adminhtml> -->
 </config>
