@@ -2,7 +2,7 @@
 
 class Hk_Vendor_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const ROUTE_ACCOUNT_LOGIN = 'vendor/account/login';
+    const ROUTE_ACCOUNT_LOGIN = 'vendor/index/login';
     const REFERER_QUERY_PARAM_NAME = 'referer';
 
     public function generatePassword($length = 8)
@@ -39,5 +39,27 @@ class Hk_Vendor_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $params;
+    }
+    public function getLoginPostUrl()
+    {
+        $params = array();
+        if ($this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)) {
+            $params = array(
+                self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)
+            );
+        }
+        return $this->_getUrl('vendor/index/loginPost', $params);
+    }
+    public function getForgotPasswordUrl()
+    {
+        return $this->_getUrl('vendor/index/forgotpassword');
+    }
+     public function getRegisterUrl()
+    {
+        return $this->_getUrl('vendor/index/createpost');
+    }
+    public function getEmailConfirmationUrl($email = null)
+    {
+        return $this->_getUrl('vendor/index/confirmation', array('email' => $email));
     }
 }

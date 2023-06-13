@@ -5,14 +5,26 @@
             <block type="vendor/vendor" name="vendor_content" template="vendor/home.phtml"/>
         </reference>
     </vendor_index_index>
-    <vendor_index_register>
-         <reference name="content">
-            <block type="vendor/register" name="vendor_register" template="vendor/register.phtml"/>
-        </reference>
-    </vendor_index_register>
     <vendor_index_signup>
          <reference name="content">
             <block type="vendor/signup" name="vendor_signup" template="vendor/signup.phtml"/>
         </reference>
     </vendor_index_signup>
+    <vendor_index_forgot>
+         <reference name="content">
+            <block type="vendor/forgot" name="vendor_forgot" template="vendor/forgot.phtml"/>
+        </reference>
+    </vendor_index_forgot>
+    <vendor_index_login translate="label">
+        <label>Vendor Account Registration Form</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="vendor/login" name="vendor_form_login" template="vendor/login.phtml">
+            </block>
+        </reference>
+    </vendor_index_login>
 </layout>

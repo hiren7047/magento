@@ -1,0 +1,21 @@
+<form action="<?php echo $this->getUrl('customer/account/forgotpasswordpost') ?>" method="post" id="forgot_password_form">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Forgot Your Password?') ?></h2>
+        <p><?php echo $this->__('Please enter your email address below. You will receive a link to reset your password.') ?></p>
+
+        <ul class="form-list">
+            <li>
+                <label for="email_address" class="required"><?php echo $this->__('Email Address') ?></label>
+                <div class="input-box">
+                    <input type="email" name="email" id="email_address" value="" class="input-text required-entry validate-email" />
+                </div>
+            </li>
+        </ul>
+
+        <div class="buttons-set">
+            <button type="submit" class="button" title="<?php echo $this->__('Submit') ?>">
+                <span><span><?php echo $this->__('Submit') ?></span></span>
+            </button>
+        </div>
+    </div>
+</form>
