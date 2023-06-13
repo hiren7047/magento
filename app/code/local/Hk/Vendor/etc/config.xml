@@ -17,7 +17,7 @@
         <layout>
             <updates>
                 <Vendor module="Hk_Vendor">
-                    <file>Hk_Vendor.xml</file>
+                    <file>vendor.xml</file>
                 </Vendor>
             </updates>
         </layout>
@@ -85,15 +85,6 @@
         </helpers>
     </global>
     <admin>
-        <!-- <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <Hk_Vendor>Hk_Vendor_Adminhtml</Hk_Vendor>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers> -->
         <routers>
             <Vendor>
                 <use>admin</use>
