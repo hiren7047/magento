@@ -25,7 +25,7 @@
  */
 
 /**
- * Adminhtml customer grid block
+ * Adminhtml vendor grid block
  *
  * @category   Mage
  * @package    Mage_Adminhtml

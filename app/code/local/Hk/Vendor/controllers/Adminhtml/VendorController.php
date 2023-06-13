@@ -242,33 +242,36 @@ $this->getResponse()->setBody(json_encode($states));
     }
 
    public function sendMail($model)
-{
-    $storeId = Mage::app()->getStore()->getId();
+    {
+    $vendor = $model;
+    $email = $vendor->getEmail();
 
-    $emailTemplate = Mage::getModel('core/email_template')
-        ->loadDefault('vendor_register_email_template');
-
-    // Set sender information
-    $emailTemplate->setSenderName('Admin');
-    $emailTemplate->setSenderEmail('admin@example.com');
-
-    // Set recipient information
-    $emailTemplate->setTemplateSubject('Welcome to ' . Mage::app()->getStore()->getName());
-    $emailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId));
-
-    // Set email template variables
-    $emailTemplateVariables = array(
-        'store' => Mage::app()->getStore(),
-        'customer' => $model,
-        'store_email' => Mage::getStoreConfig('trans_email/ident_general/email'),
-        'store_phone' => Mage::getStoreConfig('general/store_information/phone'),
-        'phone' => '1234567890', // Replace with your desired phone value
+    $vars = array(
+        'vendor' => $vendor,
+        'message' => 'Hello vendor, hope you have a good day!',
     );
 
-    // Send the email
-    echo "<pre>";
-    print_r($emailTemplate);
-    die;
+    $emailTemplate = Mage::getModel('core/email_template')->loadDefault('vendor_welcome_email_template');
+
+    $processedTemplate = $emailTemplate->getProcessedTemplate($vars);
+
+    $config = array(
+        'ssl' => 'tls',
+        'port' => 587,
+        'auth' => 'login',
+        'username' => 'admin@gmail.com', // Replace with your Gmail email address
+        'password' => 'grwtfaioajyhqtzf', // Replace with your Gmail password or app password
+    );
+
+    $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
+
+    $mail = new Zend_Mail('UTF-8');
+    $mail->setBodyHtml($processedTemplate);
+    $mail->setfrom('nikparmarcybercom@gmail.com', 'nik'); // Replace with your Gmail email address and name
+    $mail->addTo($email, 'Vendor');
+    $mail->setSubject('Welcome Vendor');
+    $mail->setBodyText('Hello vendor, hope you have a good day!');
+    $mail->send($transport);
     $emailTemplate->send($model->getEmail(), $model->getName(), $emailTemplateVariables);
 }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <vendor_index_index>
+         <reference name="content">
+            <block type="vendor/vendor" name="vendor_content" template="vendor/home.phtml"/>
+        </reference>
+    </vendor_index_index>
+    <vendor_index_register>
+         <reference name="content">
+            <block type="vendor/register" name="vendor_register" template="vendor/register.phtml"/>
+        </reference>
+    </vendor_index_register>
+    <vendor_index_signup>
+         <reference name="content">
+            <block type="vendor/signup" name="vendor_signup" template="vendor/signup.phtml"/>
+        </reference>
+    </vendor_index_signup>
+</layout>
