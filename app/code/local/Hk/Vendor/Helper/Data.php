@@ -52,7 +52,7 @@ class Hk_Vendor_Helper_Data extends Mage_Core_Helper_Abstract
     }
     public function getForgotPasswordUrl()
     {
-        return $this->_getUrl('vendor/index/forgotpassword');
+        return $this->_getUrl('vendor/index/forgot');
     }
      public function getRegisterUrl()
     {

@@ -288,4 +288,70 @@ class Hk_Vendor_IndexController extends Mage_Core_Controller_Front_Action
         $this->loadLayout();
         $this->renderLayout();
     }
+
+    public function forgotpasswordpostAction()
+    {
+    if ($this->getRequest()->isPost()) {
+        // Retrieve the posted data
+        $postData = $this->getRequest()->getPost('email');
+
+        if (!$postData) {
+            Mage::getSingleton('core/session')->addError('Please enter your email address.');
+            $this->_redirect('*/*/forgot');
+            return;
+        }
+
+        $vendor = Mage::getModel('vendor/vendor');
+        $vendor->load($postData, 'email'); // Check if the email is already registered as a vendor
+        if ($vendor->getId()) {
+            if ($vendor->getStatus() == 0) {
+                Mage::getSingleton('core/session')->addError('Please activate your account first.');
+                $this->_redirect('*/*/login');
+                return;
+            }
+
+            $content = $this->_prepareForgotBodyContent($vendor->getId());
+            $this->_sendmail($vendor, $content);
+            Mage::getSingleton('core/session')->addSuccess('Password reset link has been sent to your email.');
+            $this->_redirect('*/*/login');
+        } else {
+            Mage::getSingleton('core/session')->addError('Email address is not registered as a vendor.');
+            $this->_redirect('*/*/forgot');
+        }
+        } else {
+            Mage::getSingleton('core/session')->addError('Error: Request is not allowed.');
+            // Redirect the user to another page or display the error message as needed
+            $this->_redirect('*/index/login');
+        }
+    }
+
+    public function _prepareForgotBodyContent($id)
+    {
+        $encryptionKey = 'cybercom'; // Replace with your encryption key
+        $hashKey = base64_encode(openssl_encrypt($id, 'AES-256-CBC', $encryptionKey, 0, substr(md5($encryptionKey), 0, 16)));
+
+        $mailUrl = Mage::getUrl('*/*/urlForgotVerification');
+        $finalUrl = $mailUrl . 'key/' . $hashKey;
+
+        $content = 'please verify the user via this URL ' . $finalUrl;
+        return $content;
+    }
+
+    public function urlForgotVerificationAction()
+    {
+        try {
+            $hashKey = $this->getRequest()->getParam('key');
+
+            if (!$hashKey) {
+                Mage::throwException('Invalid URL.');
+            }
+
+            $encryptionKey = 'cybercom'; // Replace with your encryption key
+            $vendorId = openssl_decrypt(base64_decode($hashKey), 'AES-256-CBC', $encryptionKey, 0, substr(md5($encryptionKey), 0, 16));
+            echo $vendorId;die;
+        } catch (Exception $e) {
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+            $this->_redirect('*/*/login');
+        }
+    }
 }
