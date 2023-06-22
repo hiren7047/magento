@@ -1,8 +1,8 @@
 <config>
 	<modules>
-		<practice>
+		<Ccc_Practice>
 			<version>0.1.0</version>
-		</practice>
+		</Ccc_Practice>
 	</modules>
 	<frontend>
         <layout>
