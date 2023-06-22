@@ -8,8 +8,6 @@ class Hk_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
        	$this->loadLayout();
        	$this->_addContent($this->getLayout()->createBlock('vendor/adminhtml_vendor'));
 	   	$this->renderLayout();
-        $model = Mage::getModel('vendor/vendor')->load(1);
-              $this->sendMail($model);
     }
 
     protected function _initAction()
@@ -241,39 +239,37 @@ $this->getResponse()->setBody(json_encode($states));
         
     }
 
-   public function sendMail($model)
+   public function sendmail($model, $content = null)
     {
-    $vendor = $model;
-    $email = $vendor->getEmail();
+        $vendor = $model;
+        $email = $vendor->getEmail();
+        $vars = array(
+            'vendor' => $vendor,
+            'message' => 'Hello vendor, hope you have a good day!',
+        );
 
-    $vars = array(
-        'vendor' => $vendor,
-        'message' => 'Hello vendor, hope you have a good day!',
-    );
+        $emailTemplate = Mage::getModel('core/email_template')->loadDefault('vendor_login_email_template');
+        $processedTemplate = $emailTemplate->getProcessedTemplate($vars);
 
-    $emailTemplate = Mage::getModel('core/email_template')->loadDefault('vendor_welcome_email_template');
+        $config = array(
+            'ssl' => 'tls',
+            'port' => 587,
+            'auth' => 'login',
+            'username' => 'hirenkhunt.ccc@gmail.com', // Replace with your Gmail email address
+            'password' => 'bjsoarxqdfheivyq', // Replace with your Gmail password or app password
+        );
 
-    $processedTemplate = $emailTemplate->getProcessedTemplate($vars);
+        $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
 
-    $config = array(
-        'ssl' => 'tls',
-        'port' => 587,
-        'auth' => 'login',
-        'username' => 'admin@gmail.com', // Replace with your Gmail email address
-        'password' => 'grwtfaioajyhqtzf', // Replace with your Gmail password or app password
-    );
-
-    $transport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
-
-    $mail = new Zend_Mail('UTF-8');
-    $mail->setBodyHtml($processedTemplate);
-    $mail->setfrom('nikparmarcybercom@gmail.com', 'nik'); // Replace with your Gmail email address and name
-    $mail->addTo($email, 'Vendor');
-    $mail->setSubject('Welcome Vendor');
-    $mail->setBodyText('Hello vendor, hope you have a good day!');
-    $mail->send($transport);
-    $emailTemplate->send($model->getEmail(), $model->getName(), $emailTemplateVariables);
-}
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setBodyHtml($content);
+        $mail->setfrom('hirenkhunt.ccc@gmail.com', 'Heric'); // Replace with your Gmail email address and name
+        $mail->addTo($email, 'Vendor');
+        $mail->setSubject('Welcome Vendor');
+        $mail->setBodyText('Hello vendor, hope you have a good day!');
+        $mail->send($transport);
+        return true;
+    }
 
 
 
