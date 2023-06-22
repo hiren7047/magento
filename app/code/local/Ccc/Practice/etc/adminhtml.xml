@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <practice translate="title" module="practice">
+            <title>Practice</title>
+            <sort_order>10</sort_order>
+            <!-- action>adminhtml/customer/</action -->
+            <children>
+                <practicegrid translate="title" module="practice">
+                    <title>First</title>
+                    <action>practice/query/first</action>
+                    <sort_order>0</sort_order>
+                </practicegrid>
+                <second translate="title" module="practice">
+                    <title>Second</title>
+                    <action>practice/query/second</action>
+                    <sort_order>0</sort_order>
+                </second>
+                <third translate="title" module="practice">
+                    <title>Third</title>
+                    <action>practice/query/third</action>
+                    <sort_order>0</sort_order>
+                </third>
+                <forth translate="title" module="practice">
+                    <title>Forth</title>
+                    <action>practice/query/forth</action>
+                    <sort_order>0</sort_order>
+                </forth>
+                <fifth translate="title" module="practice">
+                    <title>Fifth</title>
+                    <action>practice/query/fifth</action>
+                    <sort_order>0</sort_order>
+                </fifth>
+                <sixth translate="title" module="practice">
+                    <title>Sixth</title>
+                    <action>practice/query/sixth</action>
+                    <sort_order>0</sort_order>
+                </sixth>
+                <seven translate="title" module="practice">
+                    <title>Seven</title>
+                    <action>practice/query/seven</action>
+                    <sort_order>0</sort_order>
+                </seven>
+                <eight translate="title" module="practice">
+                    <title>Eight</title>
+                    <action>practice/query/eight</action>
+                    <sort_order>0</sort_order>
+                </eight>
+                <nine translate="title" module="practice">
+                    <title>Nine</title>
+                    <action>practice/query/nine</action>
+                    <sort_order>0</sort_order>
+                </nine>
+                <ten translate="title" module="practice">
+                    <title>Ten</title>
+                    <action>practice/query/ten</action>
+                    <sort_order>0</sort_order>
+                </ten>
+            </children>
+         </practice>
+    </menu>
+</config>
