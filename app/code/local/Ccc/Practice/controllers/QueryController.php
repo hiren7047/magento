@@ -412,4 +412,31 @@ class Ccc_Practice_QueryController extends Mage_Adminhtml_Controller_Action
         echo "string";
     }
 
+    public function testAction()
+    {
+        echo "<pre>";
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        // echo "<pre>"; print_r($connection);die;
+        echo $select = $connection->select()->
+        from(
+            array('e' =>'catalog_product_entity'),
+            array(
+                'entity_id',
+                'eo.value',
+                'sku'
+
+                // 'attribute_code',
+                // 'eo.option_count' => new Zend_Db_Expr('COUNT(eo.option_id)'),
+            )
+        )
+        ->joinLeft(
+            array('eo'=>'catalog_product_entity_varchar'),
+            'e.entity_id = eo.entity_id',
+            array()
+        )
+        ->where('attribute_id = 87 OR attribute_id = 88 OR attribute_id = 89')
+        ;
+        die;
+    }
+
 }

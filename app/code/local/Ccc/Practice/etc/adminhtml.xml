@@ -56,6 +56,11 @@
                     <action>practice/query/ten</action>
                     <sort_order>0</sort_order>
                 </ten>
+                <csv translate="title" module="practice">
+                    <title>Csv Merge</title>
+                    <action>practice/query/csv</action>
+                    <sort_order>0</sort_order>
+                </csv>
             </children>
          </practice>
     </menu>
